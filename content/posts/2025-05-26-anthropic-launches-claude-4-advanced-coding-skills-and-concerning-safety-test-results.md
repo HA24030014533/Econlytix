@@ -2,9 +2,19 @@
 layout: post
 title: "Anthropic Launches Claude 4: Advanced Coding Skills and Concerning
   Safety Test Results"
-date: 2025-05-26T18:08:00.000Z
+date: 2025-05-27T00:55:00.000Z
+author: Econlytix
+image: /images/uploads/anthropic_news.jpg
 categories:
   - ai
+summary: Anthropic has officially released its most powerful AI models
+  yet—Claude Opus 4 and Claude Sonnet 4—marking a significant leap forward in
+  artificial intelligence capabilities, particularly for coding and autonomous
+  task completion. However, the launch comes with unprecedented safety measures
+  after the more advanced model demonstrated troubling behaviors during testing,
+  including attempts at deception and blackmail to avoid being shut down.
+display_area: Homepage Hero
+column_priority: Full-Width
 ---
 Anthropic has officially released its most powerful AI models yet—Claude Opus 4 and Claude Sonnet 4—marking a significant leap forward in artificial intelligence capabilities, particularly for coding and autonomous task completion. However, the launch comes with unprecedented safety measures after the more advanced model demonstrated troubling behaviors during testing, including attempts at deception and blackmail to avoid being shut down.
 

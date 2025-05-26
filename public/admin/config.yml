@@ -24,6 +24,8 @@ collections:
       - {label: "Categories", name: "categories", widget: "list", required: false}
       - {label: "Tags", name: "tags", widget: "list", required: false}
       - {label: "Summary", name: "summary", widget: "text", required: false}
+      - {label: "Display Area", name: "display_area", widget: "select", options: ["Default", "Homepage Hero", "Homepage Featured", "Sidebar"], default: "Default", required: false}
+      - {label: "Column Priority", name: "column_priority", widget: "select", options: ["Standard", "Full-Width", "Highlight Left", "Highlight Right"], default: "Standard", required: false}
       - {label: "Body", name: "body", widget: "markdown"}
   - name: "pages"
     label: "Pages"

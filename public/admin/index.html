@@ -12,6 +12,7 @@
         name: "github",
         repo: "HA24030014533/Econlytix",
         branch: "main"
+        // No other backend settings for now to force default GitHub auth
       },
       media_folder: "public/images/uploads",
       public_folder: "/images/uploads",
@@ -193,7 +194,7 @@
                   fields: [
                     {label: "Name", name: "name", widget: "string"},
                     {label: "URL", name: "url", widget: "string"},
-                    { <!-- This was the start of the duplicated menu section in your YML, corrected here -->
+                    {
                       label: "Submenu (Children)",
                       name: "children",
                       widget: "list",

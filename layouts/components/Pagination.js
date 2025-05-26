@@ -16,7 +16,7 @@ const Pagination = ({ section, currentPage, totalPages }) => {
     <>
       {totalPages > 1 && (
         <nav
-          className="item-center mb-4 flex justify-center space-x-1 lg:space-x-2"
+          className="w-full items-center mb-4 flex justify-center space-x-1 lg:space-x-2" /* Added w-full, changed item-center to items-center */
           aria-label="Pagination"
         >
           {/* previous */}
@@ -49,7 +49,7 @@ const Pagination = ({ section, currentPage, totalPages }) => {
               {pagination === currentPage ? (
                 <span
                   aria-current="page"
-                  className={`inline-flex h-[38px] w-[38px] items-center justify-center rounded-full bg-primary px-4 py-1 font-secondary text-lg font-bold leading-none text-dark text-white dark:text-darkmode-light`}
+                  className={`inline-flex h-[38px] w-[38px] items-center justify-center rounded-full bg-primary px-4 py-1 font-secondary text-lg font-bold leading-none text-primary-foreground`}
                 >
                   {pagination}
                 </span>

@@ -3,7 +3,7 @@ html {
 }
 
 body {
-  @apply bg-body font-primary font-normal leading-relaxed text-text dark:bg-darkmode-body dark:text-darkmode-light;
+  @apply bg-body font-sans font-normal leading-relaxed text-text dark:bg-darkmode-body dark:text-darkmode-light;
 }
 
 h1,
@@ -13,6 +13,10 @@ h4,
 h5,
 h6 {
   @apply font-secondary font-bold leading-tight text-black dark:text-darkmode-light;
+}
+
+h1 { /* Apply primary color specifically to h1, can be adjusted if other headings need it too */
+  @apply text-primary;
 }
 
 h1,

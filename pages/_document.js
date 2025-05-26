@@ -1,4 +1,4 @@
-import TwSizeIndicator from "@components/TwSizeIndicator";
+import TwSizeIndicator from "@layoutComponents/TwSizeIndicator";
 import config from "@config/config.json";
 import { Head, Html, Main, NextScript } from "next/document";
 

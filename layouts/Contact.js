@@ -9,7 +9,7 @@ const Contact = ({ data }) => {
   const { title, form_action, phone, mail, location } = frontmatter;
 
   return (
-    <section className="section lg:mt-16">
+    <section className="section">
       <div className="container">
         <div className="row relative pb-16">
           <ImageFallback
@@ -93,7 +93,7 @@ const Contact = ({ data }) => {
                 </label>
                 <textarea
                   className="form-textarea w-full"
-                  placeholder="Hello I’m Mr ‘x’ from………….."
+                  placeholder="Hello I'm Mr 'x' from………….."
                   rows="7"
                 />
               </div>

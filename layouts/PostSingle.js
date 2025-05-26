@@ -37,10 +37,10 @@ const PostSingle = ({
 
   return (
     <Base title={title} description={description}>
-      <section className="section single-blog mt-6">
+      <section className="section single-blog">
         <div className="container">
           <div className="row">
-            <div className="lg:col-8">
+            <div className="lg:col-9">
               <article>
                 <div className="relative">
                   {image && (
@@ -52,10 +52,10 @@ const PostSingle = ({
                       className="rounded-lg"
                     />
                   )}
-                  <ul className="absolute top-3 left-2 flex flex-wrap items-center">
+                  <ul className="absolute top-2 left-2 flex flex-wrap items-center">
                     {categories.map((tag, index) => (
                       <li
-                        className="mx-2 inline-flex h-7 rounded-[35px] bg-primary px-3 text-white"
+                        className="mx-2 inline-flex h-7 rounded-[35px] bg-primary px-3 text-primary-foreground"
                         key={"tag-" + index}
                       >
                         <Link
@@ -73,7 +73,7 @@ const PostSingle = ({
                     <InnerPagination posts={posts} date={date} />
                   </div>
                 )}
-                {markdownify(title, "h1", "lg:text-[42px] mt-4")}
+                {markdownify(title, "h1", "text-[36px] lg:text-[48px] mt-4")}
                 <ul className="flex items-center space-x-4">
                   <li>
                     <Link
@@ -107,6 +107,7 @@ const PostSingle = ({
               </div>
             </div>
             <Sidebar
+              className="lg:col-3"
               posts={posts.filter((post) => post.slug !== slug)}
               categories={allCategories}
             />

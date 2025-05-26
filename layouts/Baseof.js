@@ -89,9 +89,11 @@ const Base = ({
         />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <Header />
+      <Header isHomepage={router.pathname === "/"} />
       {/* main site */}
-      <main>{children}</main>
+      <main className={router.pathname === "/" ? "pt-20" : "pt-0"}>
+        {children}
+      </main>
       <Footer />
     </>
   );

@@ -60,7 +60,7 @@
     @apply -mt-4 block text-center text-gray-500;
   }
   blockquote {
-    & > p {
+& > p {
       @apply relative text-2xl text-black;
       &::after,
       &::before {
@@ -78,26 +78,21 @@
   }
 }
 
-//banner
-.banner {
-  &-title {
-    h1 {
-      @apply font-bold leading-[1] lg:text-[72px];
-    }
+.dark {
+  .section-title {
+    color: #fff !important;
+    text-decoration-color: #fff !important;
+  }
 
-    strong {
-      @apply text-primary;
-    }
-
-    span {
-      @apply font-normal font-bold text-dark dark:text-darkmode-light lg:text-[55px];
-    }
+  .content blockquote > p {
+    color: #fff !important;
   }
 }
 
+
 //section-title
 .section-title {
-  @apply mb-12 underline decoration-primary decoration-wavy decoration-2 underline-offset-[.5em];
+  @apply mb-12 underline decoration-primary decoration-2 underline-offset-[.5em] text-dark;
 }
 
 //socials
@@ -195,7 +190,7 @@ footer .socials {
 
     & > p {
       @apply lg:text-[24px];
-      @apply relative text-2xl text-black;
+      @apply relative text-2xl text-black dark:text-darkmode-light !important;
       &::after,
       &::before {
         @apply absolute inline-block h-8 w-8 bg-[url('/images/quote.svg')] bg-[length:32px_32px] bg-no-repeat content-[''];
@@ -220,4 +215,104 @@ footer .socials {
 
 #disqus_thread {
   color-scheme: none;
+}
+
+// Newspaper Layout Styles
+.newspaper-layout {
+  .section-title {
+    margin-bottom: 2rem; // Adjust spacing as needed
+  }
+}
+
+.newspaper-grid {
+  display: grid;
+  gap: 2rem; // Space between main story and secondary stories, and between secondary items
+
+  @media (min-width: 768px) { // md breakpoint (Tailwind default)
+    grid-template-columns: 2fr 1fr; // Main story takes 2/3, secondary takes 1/3
+  }
+
+  .main-story {
+    .post {
+      // Larger image and text for the main story
+      img {
+        max-height: 400px; // Example max height
+        object-fit: cover;
+      }
+      h3 {
+        @apply text-h3-sm md:text-h3; // Larger heading
+      }
+      p {
+        @apply text-base;
+      }
+    }
+  }
+
+  .secondary-stories {
+    display: grid;
+    gap: 1.5rem; // Space between individual secondary stories
+
+    @media (min-width: 480px) and (max-width: 767px) { // sm to md-exclusive
+      grid-template-columns: repeat(2, 1fr); // Two columns on small-medium screens
+    }
+     @media (max-width: 479px) { // xs screens
+      grid-template-columns: 1fr; // Single column on extra small screens
+    }
+
+
+    .secondary-story-item {
+      .post {
+        // Smaller presentation for secondary stories
+        img {
+          max-height: 150px;
+          object-fit: cover;
+        }
+        h3 {
+          @apply text-h5 mb-1 mt-3; // Smaller heading
+        }
+        ul { // Meta items like author/date
+          @apply text-xs;
+        }
+        p {
+          @apply text-sm mb-2;
+          // Shorter summary for secondary posts if Post.js doesn't handle it
+          // You might need to adjust Post.js or pass a prop for summary length
+          display: -webkit-box;
+          -webkit-line-clamp: 3; // Limit to 3 lines
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .btn-outline-primary { // Read more button
+          @apply py-1 px-3 text-xs mt-2;
+        }
+      }
+    }
+  }
+}
+
+// Ensure .post within .newspaper-layout has appropriate styling
+// if overrides are needed from the generic .post styles
+.newspaper-layout .post {
+  // Add any specific overrides for posts within the newspaper layout if necessary
+  // For example, removing borders or adjusting padding if the default .post style conflicts.
+  border: none; // Example: remove default post border if any
+  padding: 0; // Example: remove default post padding
+}
+
+// Line Clamping Utilities
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

@@ -12,10 +12,16 @@
     "start": "next start"
   },
   "dependencies": {
+    "@tabler/icons-react": "^2.0.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "disqus-react": "^1.1.5",
+    "framer-motion": "^10.0.0",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",
+    "lucide-react": "^0.511.0",
     "marked": "^4.2.12",
+    "motion": "^12.14.0",
     "next": "13.1.5",
     "next-mdx-remote": "^4.3.0",
     "next-themes": "^0.2.1",
@@ -27,11 +33,14 @@
     "react-mailchimp-subscribe": "^2.1.3",
     "react-syntax-highlighter": "^15.5.0",
     "rehype-slug": "^5.1.0",
-    "remark-gfm": "^3.0.1"
+    "remark-gfm": "^3.0.1",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/typography": "^0.5.9",
+    "@types/node": "22.15.21",
     "autoprefixer": "^10.4.13",
     "date-fns": "^2.29.3",
     "date-fns-tz": "^1.3.7",

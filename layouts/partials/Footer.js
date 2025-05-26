@@ -1,4 +1,4 @@
-import Social from "@components/Social";
+import Social from "@layoutComponents/Social";
 import config from "@config/config.json";
 import menu from "@config/menu.json";
 import social from "@config/social.json";
@@ -10,14 +10,16 @@ import Link from "next/link";
 const Footer = () => {
   const { copyright, footer_content } = config.params;
   return (
-    <footer className="section relative mt-12 pt-[70px] pb-[50px]">
+    <footer className="section relative overflow-hidden mt-12 pt-[70px] pb-[50px]"> {/* overflow-hidden is key */}
+      {/* Map image - testing clipping with fill={true} */}
       <ImageFallback
-        className="-z-[1] object-cover object-left  md:object-top"
-        src="/images/footer-bg-shape.svg"
-        alt="footer background"
+        className="object-cover object-center" /* next/image with fill={true} handles absolute positioning */
+        src="/images/map.svg"
+        alt="footer map background"
         fill={true}
       />
-      <div className="container text-center">
+      {/* Shape image removed for this test step */}
+      <div className="container text-center relative z-10"> {/* Content must be on top */}
         <div className="mb-6 inline-flex">
           <Logo />
         </div>

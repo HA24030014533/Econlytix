@@ -47,9 +47,9 @@
     "newsletter": {
       "enable": true,
       "title": "Newsletter",
-      "content": "Join thousands of Tiny Salt subscribers and get our best recipes delivered each week!",
+      "content": "Stay updated with our latest news and articles. Subscribe to our newsletter.",
       "privacy_policy_page": "#",
-      "malichipm_url": ""
+      "mailchimp_form_action": "YOUR_MAILCHIMP_FORM_ACTION_URL_HERE"
     }
   },
   "disqus": {

@@ -27,7 +27,7 @@ function CustomForm({ status, message, onValidated }) {
           <FaEnvelope className="absolute top-1/2 right-5 -translate-y-1/2 text-xl transition duration-75" />
         </fieldset>
         <button className="d-block  btn btn-primary mt-4 w-full" type="submit">
-          Sign In
+          Sign Up
         </button>
       </form>
       {status === "sending" && (

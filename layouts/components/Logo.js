@@ -1,10 +1,10 @@
-import ImageFallback from "@components/ImageFallback";
+import ImageFallback from "@layoutComponents/ImageFallback";
 import config from "@config/config.json";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const Logo = ({ src }) => {
+const Logo = ({ src } = {}) => { // Make src optional
   // destructuring items from config object
   const { logo, logo_white, logo_width, logo_height, logo_text, title } =
     config.site;

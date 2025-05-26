@@ -1,6 +1,6 @@
 backend:
   name: github # Reverted to GitHub backend
-  repo: # USER_MUST_REPLACE/REPO_NAME e.g., your-github-username/your-repo-name
+  repo: HA24030014533/Econlytix # Updated with user's repository
   branch: main # Or master, or your default branch
   # Optional: if your site is deployed on Netlify, you can use Netlify Identity
   # open_authoring: true

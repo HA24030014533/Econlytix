@@ -1,13 +1,15 @@
 backend:
-  name: github # Reverted to GitHub backend
-  repo: HA24030014533/Econlytix # Updated with user's repository
-  branch: main # Or master, or your default branch
-  # Optional: if your site is deployed on Netlify, you can use Netlify Identity
+  name: github
+  repo: HA24030014533/Econlytix
+  branch: main
+  # Remove Netlify-specific configuration
   # open_authoring: true
   # site_domain: your-netlify-site-url.netlify.app
 
-media_folder: "public/images/uploads" # Where to store uploaded images
-public_folder: "/images/uploads" # The src attribute for uploaded images
+# Add GitHub OAuth configuration
+local_backend: true # Enable local backend for development
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
 
 collections:
   - name: "posts" # Used in routes, e.g., /admin/collections/posts

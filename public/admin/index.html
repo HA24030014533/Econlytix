@@ -6,10 +6,35 @@
   <title>Content Manager</title>
   <!-- Standard way to link config.yml, assuming it's in the same directory as index.html -->
   <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url">
+  <!-- Add GitHub OAuth configuration -->
+  <script>
+    window.CMS_CONFIG = {
+      backend: {
+        name: 'github',
+        repo: 'HA24030014533/Econlytix',
+        branch: 'main',
+        auth_endpoint: 'https://api.github.com/authorizations',
+        auth_scope: 'repo',
+        auth_type: 'token'
+      }
+    };
+  </script>
 </head>
 <body>
   <div id="nc-root"></div> <!-- Explicit mount point for Decap CMS -->
   <!-- Decap CMS script, loaded at the end -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <!-- Initialize CMS with GitHub OAuth -->
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
 </body>
 </html>

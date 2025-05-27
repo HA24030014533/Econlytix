@@ -1,0 +1,98 @@
+<svg width="340" height="90" viewBox="0 0 340 90" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .icon-dot {
+      fill: none; /* Transparent circle */
+      stroke: black;
+      stroke-width: 1; /* This will be scaled by the group transform */
+    }
+    .icon-line {
+      stroke: black;
+      stroke-width: 1; /* This will be scaled by the group transform */
+      stroke-linecap: butt;
+    }
+    .logo-text {
+      font-family: "Poppins", "Helvetica Neue", Arial, sans-serif; /* Changed to Poppins */
+      font-size: 42px;
+      fill: black;
+      letter-spacing: 1.5px;
+      dominant-baseline: middle; /* Vertically centers text around its y-coordinate */
+      text-anchor: start;
+    }
+  </style>
+
+  <!--
+    Icon Group:
+    Original (unscaled) structure: R=4, Spacing S=16.
+    Unscaled dot centers span y=0 to y=32. Visual extent from y=-4 to y=36.
+    Unscaled local y-center of icon structure is at y=16.
+    Unscaled visual height = 40.
+
+    Text Properties:
+    Font-size: 42px, Poppins. Estimated Cap-Height (CH_text) approx. 30px.
+    Text y="45" with dominant-baseline="middle".
+
+    Adjustments:
+    1. Scale Factor (s):
+       To match icon height to text cap-height: s = CH_text / Unscaled_icon_height = 30 / 40 = 0.75.
+       Scaled icon height = 40 * 0.75 = 30.
+
+    2. Target Vertical Center (Y_target_center):
+       Based on feedback, the previous effective center (y=38) was too low.
+       New target: Y_target_center = 36 (moving up by 2 units).
+
+    3. Ty (Vertical Translation of Icon Group):
+       Ty + s * (unscaled_local_y_center) = Y_target_center
+       Ty + 0.75 * 16 = 36
+       Ty + 12 = 36
+       Ty = 24.
+
+    4. Tx (Horizontal Translation of Icon Group):
+       Left padding for icon from SVG edge = 20 units.
+       Unscaled icon's leftmost visual point (dot center - R) is local x = -4.
+       Tx + s * (-4) = 20
+       Tx + 0.75 * (-4) = 20
+       Tx - 3 = 20
+       Tx = 23.
+
+    5. Text Horizontal Start Position (text_x_start):
+       Icon's rightmost visual edge (scaled) = Tx + s * (unscaled_rightmost_dot_center_x + R_unscaled)
+                                           = 23 + 0.75 * (32 + 4)
+                                           = 23 + 0.75 * 36 = 23 + 27 = 50.
+       Desired gap between icon and text = 10 units (reduced from 20).
+       text_x_start = 50 + 10 = 60.
+  -->
+  <g id="logo-icon" transform="translate(23, 24) scale(0.75)">
+    <defs>
+      <circle id="dot-definition" r="4"/> <!-- Unscaled R=4 -->
+    </defs>
+
+    <!-- Lines shortened to stop at UN SCALED circle circumferences (R=4) -->
+    <!-- These coordinates are relative to the group, BEFORE scaling -->
+    <!-- R_unscaled = 4, R_diag_unscaled approx 2.828 -->
+
+    <!-- Connections from Mid-Left dot C21(0,16) -->
+    <line class="icon-line" x1="0" y1="12" x2="0" y2="4"/>   <!-- C21(0,16-R) to C11(0,0+R) -->
+    <line class="icon-line" x1="4" y1="16" x2="12" y2="16"/>  <!-- C21(0+R,16) to C22(16-R,16) -->
+    <line class="icon-line" x1="0" y1="20" x2="0" y2="28"/>   <!-- C21(0,16+R) to C31(0,32-R) -->
+
+    <!-- Connections from Mid-Center dot C22(16,16) -->
+    <line class="icon-line" x1="16" y1="12" x2="16" y2="4"/>   <!-- C22(16,16-R) to C12(16,0+R) -->
+    <line class="icon-line" x1="18.828" y1="13.172" x2="29.172" y2="2.828"/> <!-- C22 to C13 (diagonal) -->
+    <line class="icon-line" x1="20" y1="16" x2="28" y2="16"/>  <!-- C22(16+R,16) to C23(32-R,16) -->
+    <line class="icon-line" x1="16" y1="20" x2="16" y2="28"/>  <!-- C22(16,16+R) to C32(16,32-R) -->
+
+    <!-- Connection from Bot-Left dot C31(0,32) -->
+    <line class="icon-line" x1="4" y1="32" x2="12" y2="32"/>   <!-- C31(0+R,32) to C32(16-R,32) -->
+    
+    <!-- Connection from Bot-Center dot C32(16,32) -->
+    <line class="icon-line" x1="20" y1="32" x2="28" y2="32"/>  <!-- C32(16+R,32) to C33(32-R,32) -->
+
+    <!-- Draw Dots (UNSCALED definitions, will be scaled by group transform) -->
+    <!-- Dot Centers: C11(0,0), C12(16,0), C13(32,0) etc. -->
+    <use href="#dot-definition" x="0"  y="0"  class="icon-dot"/> <use href="#dot-definition" x="16" y="0"  class="icon-dot"/> <use href="#dot-definition" x="32" y="0"  class="icon-dot"/>
+    <use href="#dot-definition" x="0"  y="16" class="icon-dot"/> <use href="#dot-definition" x="16" y="16" class="icon-dot"/> <use href="#dot-definition" x="32" y="16" class="icon-dot"/>
+    <use href="#dot-definition" x="0"  y="32" class="icon-dot"/> <use href="#dot-definition" x="16" y="32" class="icon-dot"/> <use href="#dot-definition" x="32" y="32" class="icon-dot"/>
+  </g>
+
+  <text x="60" y="45" class="logo-text">ECONLYTIX</text>
+</svg>

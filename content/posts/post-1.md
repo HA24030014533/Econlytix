@@ -9,7 +9,7 @@ draft: false
 title: "Quantum Computing Threatens Bitcoin’s Encryption "
 image: /images/uploads/guerrillabuzz-rivsjtigwlc-unsplash.jpg
 categories:
-  - Technology
+  - Politics
 tags:
   - Crypto
   - Bitcoin

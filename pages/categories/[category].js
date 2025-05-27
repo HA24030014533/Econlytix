@@ -1,37 +1,78 @@
 import config from "@config/config.json";
 import Base from "@layouts/Baseof";
-import Sidebar from "@layouts/partials/Sidebar";
 import { getSinglePage } from "@lib/contentParser";
 import { getTaxonomy } from "@lib/taxonomyParser";
 import { slugify } from "@lib/utils/textConverter";
-import Post from "@partials/Post";
+// import Post from "@partials/Post"; // Will be replaced by specific item components
+import FeaturedArticleItem from "@layouts/partials/FeaturedArticleItem";
+import PopularArticleItem from "@layouts/partials/PopularArticleItem";
+import HorizontalArticleItem from "@layouts/partials/HorizontalArticleItem";
+import OpinionArticleItem from "@layouts/partials/OpinionArticleItem";
+
 const { blog_folder } = config.settings;
 
 // category page
-const Category = ({ postsByCategories, category, posts, categories }) => {
+const Category = ({ postsByCategories, category }) => {
+  // Dummy data for now - replace with actual data fetching/filtering logic
+  const featuredArticle = postsByCategories.length > 0 ? postsByCategories[0] : null;
+  const popularArticles = postsByCategories.slice(1, 6); // Example: next 5 articles
+  const horizontalArticles = postsByCategories.slice(6, 9); // Example: next 3 articles
+  const opinionArticles = postsByCategories.slice(9, 11); // Example: next 2 articles
+
+  const categoryTitle = category.replace("-", " ");
+
   return (
-    <Base title={category}>
-      <div className="section mt-16">
-        <div className="container">
-          <h1 className="h2 mb-12">
-            Showing posts from
-            <span className="section-title ml-1 inline-block capitalize">
-              {category.replace("-", " ")}
-            </span>
-          </h1>
-          <div className="row">
-            <div className="lg:col-8">
-              <div className="row rounded border border-border p-4 px-3 dark:border-darkmode-border lg:p-6">
-                {postsByCategories.map((post, i) => (
-                  <div key={`key-${i}`} className="col-12 mb-8 sm:col-6">
-                    <Post post={post} />
-                  </div>
-                ))}
-              </div>
+    <Base title={categoryTitle}>
+      <div className="category-page-container section">
+        {/* Top Heading */}
+        <h1 className="category-title text-center font-bold">
+          {categoryTitle.toUpperCase()}
+        </h1>
+
+        {/* Main Content Area (Two Columns) */}
+        <div className="main-content-area mb-12 flex flex-col md:flex-row md:space-x-8">
+          {/* Left Column (Featured Article) */}
+          <div className="left-column mb-8 md:mb-0 md:w-3/5">
+            {featuredArticle && <FeaturedArticleItem article={featuredArticle} />}
+          </div>
+
+          {/* Right Column (Most Popular) */}
+          <div className="right-column md:w-2/5">
+            <h2 className="popular-articles-title mb-6 text-xl font-semibold">
+              Most Popular in {categoryTitle}
+            </h2>
+            <div className="popular-articles-list space-y-4">
+              {popularArticles.map((article, i) => (
+                <PopularArticleItem key={`popular-${i}`} article={article} />
+              ))}
             </div>
-            <Sidebar posts={posts} categories={categories} />
           </div>
         </div>
+
+        {/* Horizontal Articles Row */}
+        {horizontalArticles.length > 0 && (
+          <div className="horizontal-articles-row mb-12">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+              {horizontalArticles.map((article, i) => (
+                <HorizontalArticleItem key={`horizontal-${i}`} article={article} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Related Opinion Section */}
+        {opinionArticles.length > 0 && (
+          <div className="related-opinion-section">
+            <h2 className="related-opinion-title mb-6 text-xl font-semibold">
+              Related Opinion
+            </h2>
+            <div className="opinion-articles-list space-y-6">
+              {opinionArticles.map((article, i) => (
+                <OpinionArticleItem key={`opinion-${i}`} article={article} />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </Base>
   );

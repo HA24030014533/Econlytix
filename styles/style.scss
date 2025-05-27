@@ -19,11 +19,11 @@
 
     --popover-foreground: 0 0% 3.9%;
 
-    --primary: 160 59% 40%; /* Updated to theme green #2ba283 */
+    --primary: 0 0% 75%; /* Updated to #C0C0C0 */
 
     --primary-foreground: 0 0% 98%; /* Kept as light for text on primary bg */
 
-    --secondary: 0 0% 96.1%;
+    --secondary: 0 0% 95%;
 
     --secondary-foreground: 0 0% 9%;
 
@@ -71,13 +71,13 @@
 
     --popover-foreground: 0 0% 98%;
 
-    --primary: 157 95% 31%; /* Updated to theme dark green #059669 */
+    --primary: 0 0% 47%; /* Updated to #787878 */
 
     --primary-foreground: 0 0% 98%; /* Changed to light for text on dark primary bg */
 
-    --secondary: 0 0% 14.9%;
+    --secondary: 0 0% 20%;
 
-    --secondary-foreground: 0 0% 98%;
+    --secondary-foreground: 0 0% 85%;
 
     --muted: 0 0% 14.9%;
 
@@ -113,6 +113,7 @@
   @import "components";
   @import "navigation";
   @import "buttons";
+  @import "category-page";
 }
 
 @layer utilities {

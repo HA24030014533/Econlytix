@@ -1,0 +1,246 @@
+// Styles for the category page layout
+// Base theme variables can be used here e.g. var(--primary-color)
+
+.category-page-container {
+  padding-left: 1rem; // Default padding
+  padding-right: 1rem; // Default padding
+
+  @media (min-width: 768px) { // md breakpoint
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  @media (min-width: 1024px) { // lg breakpoint
+    max-width: 1200px; // Or your theme's max-width for content
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.category-title {
+  font-size: 2.8rem; // Large
+  font-weight: 700; // Bold
+  text-align: center;
+  // font-family: 'Specific-Font-From-Image', sans-serif; // Replace with actual font
+  letter-spacing: 0.025em; // Slight letter spacing if observed
+  // text-transform: uppercase; // Handled in component
+  color: #000000; // Make text black
+  border-bottom: 1px solid #000000; // Add black line underneath
+  padding-bottom: 0.75rem; // Space between text and line
+  margin-bottom: 1.5rem; // Reduced bottom margin to shift content up
+}
+
+.main-content-area {
+  // Flex handled by Tailwind: flex flex-col md:flex-row md:space-x-8
+  // mb-12 handled by Tailwind
+}
+
+.left-column {
+  // md:w-3/5 (approx 60%) - Handled by Tailwind
+  // mb-8 md:mb-0 - Handled by Tailwind
+}
+
+.right-column {
+  // md:w-2/5 (approx 40%) - Handled by Tailwind
+}
+
+.featured-article-item {
+  background-color: var(--card); // Use theme variable
+  border-radius: 0.5rem; // Rounded corners
+  overflow: hidden; // To contain image rounding
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); // Subtle shadow
+
+  .image-fallback img { // Target the img tag within ImageFallback
+    width: 100%;
+    height: auto; // Maintain aspect ratio, or set fixed height if needed
+    max-height: 450px; // Max height for the large image
+    object-fit: cover; // Ensure image covers the area
+  }
+
+  .p-6 { // Content padding
+    h2 a {
+      font-size: 1.875rem; // text-3xl
+      font-weight: 700; // bold
+      line-height: 1.2;
+      color: var(--foreground); // Use theme variable
+      &:hover {
+        color: var(--primary); // Use theme variable for hover
+      }
+    }
+    p { // Summary
+      font-size: 1rem; // text-base
+      color: var(--muted-foreground); // Use theme variable
+      line-height: 1.6;
+    }
+    .author-link { // Custom class for author if needed, or style existing
+      font-weight: 500; // medium
+      color: var(--primary);
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .metadata { // Container for metadata items
+      display: flex;
+      align-items: center;
+      gap: 1rem; // space-x-4
+      font-size: 0.75rem; // text-xs
+      color: var(--muted-foreground);
+      .metadata-item {
+        display: flex;
+        align-items: center;
+        svg {
+          margin-right: 0.375rem; // mr-1.5
+        }
+      }
+    }
+  }
+}
+
+.popular-articles-title {
+  font-size: 1.5rem; // text-xl
+  font-weight: 600; // semibold
+  margin-bottom: 1.5rem; // mb-6
+  border-bottom: 2px solid var(--border); // Separator line
+  padding-bottom: 0.75rem;
+}
+
+.popular-articles-list {
+  // space-y-4 handled by Tailwind
+}
+
+.popular-article-item {
+  display: flex;
+  align-items: flex-start; // Align items to the top
+  gap: 1rem; // space-x-4
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.375rem; // rounded-md
+  background-color: var(--card);
+  transition: box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .flex-grow { // Text content container
+    h3 a {
+      font-size: 1.125rem; // text-lg
+      font-weight: 600; // semibold
+      line-height: 1.3;
+      color: var(--foreground);
+      margin-bottom: 0.375rem; // mb-1.5
+      &:hover {
+        color: var(--primary);
+      }
+    }
+    .metadata-sm { // Smaller metadata for popular items
+      display: flex;
+      align-items: center;
+      gap: 0.75rem; // space-x-3
+      font-size: 0.75rem; // text-xs
+      color: var(--muted-foreground);
+      svg {
+        margin-right: 0.25rem; // mr-1
+      }
+    }
+  }
+
+  .image-fallback img { // Thumbnail
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 0.25rem; // rounded
+    flex-shrink: 0; // Prevent shrinking
+  }
+}
+
+.horizontal-articles-row {
+  margin-bottom: 3rem; // mb-12
+  // grid handled by Tailwind
+}
+
+.horizontal-article-item {
+  background-color: var(--card);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .image-fallback img {
+    width: 100%;
+    height: 180px; // Adjust height as needed for these cards
+    object-fit: cover;
+  }
+  .p-4 { // Content padding
+    h3 a {
+      font-size: 1.25rem; // text-xl
+      font-weight: 600; // semibold
+      line-height: 1.3;
+      color: var(--foreground);
+      &:hover {
+        color: var(--primary);
+      }
+    }
+  }
+}
+
+.related-opinion-section {
+  // No specific container styles needed beyond Tailwind margins
+}
+
+.related-opinion-title {
+  font-size: 1.5rem; // text-xl
+  font-weight: 600; // semibold
+  margin-bottom: 1.5rem; // mb-6
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0.75rem;
+}
+
+.opinion-articles-list {
+  // space-y-6 handled by Tailwind
+}
+
+.opinion-article-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem; // space-x-4
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  background-color: var(--card);
+  transition: box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .image-fallback img { // Thumbnail
+    width: 100px; // Slightly larger thumbnail for opinion
+    height: 75px;
+    object-fit: cover;
+    border-radius: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .flex-grow { // Text content
+    .opinion-tag {
+      // Tailwind: inline-block rounded bg-accent px-2 py-0.5 text-xs font-semibold uppercase tracking-wider text-accent-foreground
+      // SCSS for specific color if Tailwind's `bg-accent` is not the desired one from image
+      // background-color: #your-opinion-tag-bg-color; // e.g. a light grey or a specific color
+      // color: #your-opinion-tag-text-color;
+      margin-bottom: 0.375rem; // mb-1.5
+    }
+    h3 a {
+      font-size: 1.125rem; // text-lg
+      font-weight: 600; // semibold
+      line-height: 1.3;
+      color: var(--foreground);
+      &:hover {
+        color: var(--primary);
+      }
+    }
+  }
+}

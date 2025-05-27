@@ -1,6 +1,6 @@
-<h1 align=center>Geeky Nextjs</h1>
-<p align=center>Geeky is a free NextJs personal blog template</p>
-<h2 align="center"> <a target="_blank" href="https://geeky-nextjs.vercel.app/" rel="nofollow">Demo</a> | <a  target="_blank" href="https://pagespeed.web.dev/report?url=https%3A%2F%2Fgeeky-nextjs.vercel.app%2F&form_factor=desktop">Page Speed (100%)</a>
+<h1 align=center>Econlytix</h1>
+<p align=center>Econlytix is a free NextJs personal blog template</p>
+<h2 align="center"> <a target="_blank" href="https://econlytix.vercel.app/" rel="nofollow">Demo</a> | <a  target="_blank" href="https://pagespeed.web.dev/report?url=https%3A%2F%2Feconlytix.vercel.app%2F&form_factor=desktop">Page Speed (100%)</a>
 </h2>
 
 <p align=center>

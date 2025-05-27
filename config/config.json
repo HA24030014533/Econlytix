@@ -1,13 +1,13 @@
 {
   "site": {
-    "title": "Geeky Nextjs",
+    "title": "Econlytix",
     "base_url": "/",
     "favicon": "/images/favicon.png",
     "logo": "/images/logo.png",
     "logo_white": "/images/logo-light.png",
     "logo_width": "150",
     "logo_height": "39",
-    "logo_text": "Geeky"
+    "logo_text": "Econlytix"
   },
   "settings": {
     "theme_switcher": true,
@@ -28,7 +28,7 @@
   "metadata": {
     "meta_author": "Econlytix",
     "meta_image": "/images/og-image.png",
-    "meta_description": "Geeky Nextjs Personal Blog Template"
+    "meta_description": "Econlytix Personal Blog Template"
   },
   "widgets": {
     "about": {

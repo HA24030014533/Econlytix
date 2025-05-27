@@ -5,16 +5,28 @@
       "url": "/"
     },
     {
-      "name": "About",
-      "url": "/about"
+      "name": "Politics",
+      "url": "/categories/politics"
     },
     {
-      "name": "Elements",
-      "url": "/elements"
+      "name": "Economy",
+      "url": "/categories/economy"
     },
     {
-      "name": "Contact",
-      "url": "/contact"
+      "name": "Tech",
+      "url": "/categories/tech"
+    },
+    {
+      "name": "Crypto",
+      "url": "/categories/crypto"
+    },
+    {
+      "name": "Markets",
+      "url": "/categories/markets"
+    },
+    {
+      "name": "Policy",
+      "url": "/categories/policy"
     },
     {
       "name": "Pages",

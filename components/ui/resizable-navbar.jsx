@@ -85,7 +85,7 @@ export const NavBody = ({ children, className, visible }) => {
         minWidth: "800px",
       }}
       className={cn(
-        "relative z-10 mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start bg-transparent dark:bg-transparent px-4 py-2 lg:flex",
+        "relative z-10 mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start bg-transparent dark:bg-transparent px-4 py-8 lg:flex",
         visible ? "rounded-full" : "rounded-none",
         visible && "bg-gradient-to-b from-gray-200 to-gray-400",
         className
@@ -112,7 +112,7 @@ export const NavItems = ({ items, className, onItemClick }) => {
         <a
           onMouseEnter={() => setHovered(idx)}
           onClick={onItemClick}
-          className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300"
+          className="relative px-4 py-4 text-neutral-600 dark:text-neutral-300"
           key={`link-${idx}`}
           href={item.link}
         >
@@ -149,7 +149,7 @@ export const MobileNav = ({ children, className, visible }) => {
         damping: 26,
       }}
       className={cn(
-        "relative z-10 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-transparent px-0 py-1 lg:hidden",
+        "relative z-10 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-transparent px-0 py-7 lg:hidden",
         visible && "bg-gradient-to-b from-gray-200 to-gray-400",
         className,
       )}
@@ -215,13 +215,13 @@ export const NavbarLogo = () => {
   return (
     <a
       href="#"
-      className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-foreground"
+      className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-4 text-sm font-normal text-foreground"
     >
       <Image
         src="https://assets.aceternity.com/logo-dark.png"
         alt="logo"
-        width={30}
-        height={30}
+        width={36}
+        height={36}
         className="object-contain"
       />
       <span className="font-medium text-foreground">Startup</span>

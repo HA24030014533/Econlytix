@@ -272,7 +272,7 @@ const Post = ({ post, displayMode }) => {
             height={imageHeight}
             quality={90}
             sizes={`(max-width: 768px) ${imageWidth}px, ${imageWidth * 1.5}px`}
-            priority={displayMode === "hero_center_headline" || displayMode === "featured_large"}
+            priority={layout_style === "Featured Large" || layout_style === "Hero Center" || displayMode === "hero_center_headline"}
           />
           {showCategories && (
             <ul className="absolute top-2 left-2 flex flex-wrap items-center">

@@ -41,7 +41,7 @@ export default BlogPagination;
 // get blog pagination slug
 export const getStaticPaths = () => {
   const getAllSlug = getSinglePage(`content/${blog_folder}`);
-  const allSlug = getAllSlug.map((item) => item.slug);
+  const allSlug = getAllSlug.map((item) => item.slug).filter(slug => slug !== '404');
   const { pagination } = config.settings;
   const totalPages = Math.ceil(allSlug.length / pagination);
   let paths = [];

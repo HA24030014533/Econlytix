@@ -32,11 +32,13 @@ const Article = ({
 // get post single slug
 export const getStaticPaths = () => {
   const allSlug = getSinglePage(`content/${blog_folder}`);
-  const paths = allSlug.map((item) => ({
-    params: {
-      single: item.slug,
-    },
-  }));
+  const paths = allSlug
+    .filter(item => item.slug !== '404')
+    .map((item) => ({
+      params: {
+        single: item.slug,
+      },
+    }));
 
   return {
     paths,

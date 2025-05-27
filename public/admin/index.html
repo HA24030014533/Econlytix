@@ -4,31 +4,27 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Content Manager</title>
-  <!-- Include the CMS configuration -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script>
-    // Initialize the CMS configuration
-    window.CMS_CONFIG = {
-      backend: {
-        name: 'github',
-        repo: 'HA24030014533/Econlytix',
-        branch: 'main',
-        auth_endpoint: 'https://api.github.com/authorizations',
-        auth_scope: 'repo',
-        auth_type: 'token'
-      },
-      local_backend: true,
-      load_config_file: true,
-      config_file_path: '/admin/config.yml'
-    };
-  </script>
+  <style>
+    /* Add some basic styling to prevent layout shifts */
+    #nc-root {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
 </head>
 <body>
-  <!-- Include the CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <!-- Mount point for CMS -->
+  <div id="nc-root"></div>
+
+  <!-- Load Netlify CMS -->
+  <script src="https://unpkg.com/netlify-cms@2.10.192/dist/netlify-cms.js"></script>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+  <!-- Initialize CMS -->
   <script>
-    // Initialize the CMS
-    if (window.netlifyIdentity) {
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize Netlify Identity
       window.netlifyIdentity.on("init", user => {
         if (!user) {
           window.netlifyIdentity.on("login", () => {
@@ -36,8 +32,15 @@
           });
         }
       });
-    }
+
+      // Initialize CMS with explicit config path
+      window.CMS.init({
+        config: {
+          load_config_file: true,
+          config_file_path: '/admin/config.yml'
+        }
+      });
+    });
   </script>
-  <div id="nc-root"></div>
 </body>
 </html>

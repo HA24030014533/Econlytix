@@ -9,8 +9,10 @@ backend:
   # open_authoring: true
   # site_domain: your-netlify-site-url.netlify.app
 
-# Add GitHub OAuth configuration
-local_backend: true # Enable local backend for development
+# Update local backend configuration
+local_backend: 
+  url: 'http://localhost:3000/api/cms'
+
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
@@ -126,11 +128,11 @@ collections:
             fields:
               - {label: "Site Title", name: "title", widget: "string"}
               - {label: "Base URL", name: "base_url", widget: "string"}
-              - {label: "Favicon Path", name: "favicon", widget: "image", media_folder: "public/images", public_folder: "/images"}
-              - {label: "Logo Path", name: "logo", widget: "image", media_folder: "public/images", public_folder: "/images"}
-              - {label: "Logo White Path", name: "logo_white", widget: "image", media_folder: "public/images", public_folder: "/images"}
-              - {label: "Logo Width", name: "logo_width", widget: "string"} # Or number if preferred
-              - {label: "Logo Height", name: "logo_height", widget: "string"} # Or number
+              - {label: "Favicon", name: "favicon", widget: "image", media_folder: "public/images", public_folder: "/images"}
+              - {label: "Logo", name: "logo", widget: "image", media_folder: "public/images", public_folder: "/images"}
+              - {label: "Logo White", name: "logo_white", widget: "image", media_folder: "public/images", public_folder: "/images"}
+              - {label: "Logo Width", name: "logo_width", widget: "string"}
+              - {label: "Logo Height", name: "logo_height", widget: "string"}
               - {label: "Logo Text", name: "logo_text", widget: "string"}
           - label: "Settings"
             name: "settings"
@@ -138,28 +140,21 @@ collections:
             fields:
               - {label: "Enable Theme Switcher", name: "theme_switcher", widget: "boolean", default: true}
               - {label: "Default Theme", name: "default_theme", widget: "select", options: ["system", "light", "dark"]}
-              - {label: "Pagination (posts per page)", name: "pagination", widget: "number", value_type: "int"}
+              - {label: "Pagination", name: "pagination", widget: "number", value_type: "int"}
               - label: "Inner Pagination Options"
                 name: "InnerPaginationOptions"
                 widget: "object"
                 fields:
                   - {label: "Enable Top Pagination", name: "enableTop", widget: "boolean", default: false}
                   - {label: "Enable Bottom Pagination", name: "enableBottom", widget: "boolean", default: true}
-              - {label: "Summary Length (characters)", name: "summary_length", widget: "number", value_type: "int"}
+              - {label: "Summary Length", name: "summary_length", widget: "number", value_type: "int"}
               - {label: "Blog Folder", name: "blog_folder", widget: "string", default: "posts"}
-          - label: "Parameters"
-            name: "params"
-            widget: "object"
-            fields:
-              - {label: "Tag Manager ID", name: "tag_manager_id", widget: "string", required: false}
-              - {label: "Footer Content", name: "footer_content", widget: "text"}
-              - {label: "Copyright", name: "copyright", widget: "string"}
-          - label: "Metadata (SEO)"
+          - label: "Metadata"
             name: "metadata"
             widget: "object"
             fields:
               - {label: "Meta Author", name: "meta_author", widget: "string"}
-              - {label: "Meta Image Path", name: "meta_image", widget: "image", media_folder: "public/images", public_folder: "/images"}
+              - {label: "Meta Image", name: "meta_image", widget: "image", media_folder: "public/images", public_folder: "/images"}
               - {label: "Meta Description", name: "meta_description", widget: "text"}
           - label: "Widgets"
             name: "widgets"

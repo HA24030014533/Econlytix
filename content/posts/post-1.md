@@ -6,17 +6,16 @@ display_settings:
   column_priority: Prominent
   display_order: -2
 draft: false
-title: Quantum Computing Threatens Bitcoin’s Encryption Sooner Than Expected,
-  Google Research Reveals
+title: "Quantum Computing Threatens Bitcoin’s Encryption "
 image: /images/uploads/guerrillabuzz-rivsjtigwlc-unsplash.jpg
 categories:
   - Technology
 tags:
   - Crypto
   - Bitcoin
-summary: Breakthroughs in quantum algorithms could compress the timeline for
-  cracking cryptographic safeguards, forcing a race to future-proof digital
-  assets
+summary: Breakthroughs in algorithms could compress the timeline for cracking
+  cryptographic safeguards
+hero_bullet: Sooner Than Expected, Google Research Reveals
 featured: true
 date: 2025-05-24T13:00:00.000Z
 ---

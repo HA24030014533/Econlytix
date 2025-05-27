@@ -71,19 +71,39 @@ export const getStaticProps = async ({ params }) => {
     };
   });
 
-  // Ensure featured_until is serializable
-  if (post && post.frontmatter && post.frontmatter.display_settings && post.frontmatter.display_settings.featured_until instanceof Date) {
-    post.frontmatter.display_settings.featured_until = post.frontmatter.display_settings.featured_until.toISOString();
-  }
+  // Helper function to serialize dates in a post object
+  const serializePostDates = (individualPost) => {
+    if (!individualPost || !individualPost.frontmatter) {
+      return individualPost;
+    }
+    const newFrontmatter = { ...individualPost.frontmatter };
+    if (newFrontmatter.date instanceof Date) {
+      newFrontmatter.date = newFrontmatter.date.toISOString();
+    }
+    if (newFrontmatter.display_settings && newFrontmatter.display_settings.featured_until instanceof Date) {
+      newFrontmatter.display_settings = {
+        ...newFrontmatter.display_settings,
+        featured_until: newFrontmatter.display_settings.featured_until.toISOString(),
+      };
+    }
+    return { ...individualPost, frontmatter: newFrontmatter };
+  };
+
+  // Helper function to serialize dates in a list of posts
+  const serializePostListDates = (postList) => postList.map(p => serializePostDates(p));
+
+  const serializablePost = serializePostDates(post);
+  const serializableRelatedPosts = serializePostListDates(relatedPosts);
+  const serializablePosts = serializePostListDates(posts);
 
   return {
     props: {
-      post: post,
+      post: serializablePost,
       mdxContent: mdxContent,
       slug: single,
       allCategories: categoriesWithPostsCount,
-      relatedPosts: relatedPosts,
-      posts: posts,
+      relatedPosts: serializableRelatedPosts,
+      posts: serializablePosts,
     },
   };
 };

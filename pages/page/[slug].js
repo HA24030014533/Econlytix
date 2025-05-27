@@ -66,6 +66,20 @@ export const getStaticProps = async ({ params }) => {
   const { pagination } = config.settings;
   const posts = getSinglePage(`content/${blog_folder}`);
   
+  const serializablePosts = posts.map(post => ({
+    ...post,
+    frontmatter: {
+      ...post.frontmatter,
+      date: post.frontmatter.date instanceof Date ? post.frontmatter.date.toISOString() : post.frontmatter.date,
+      display_settings: post.frontmatter.display_settings ? {
+        ...post.frontmatter.display_settings,
+        featured_until: post.frontmatter.display_settings.featured_until instanceof Date
+          ? post.frontmatter.display_settings.featured_until.toISOString()
+          : post.frontmatter.display_settings.featured_until,
+      } : post.frontmatter.display_settings,
+    },
+  }));
+
   // Create a default postIndex object instead of reading from _index.md
   const postIndex = {
     frontmatter: {
@@ -76,7 +90,7 @@ export const getStaticProps = async ({ params }) => {
   return {
     props: {
       pagination: pagination,
-      posts: posts,
+      posts: serializablePosts,
       currentPage: currentPage,
       postIndex: postIndex,
     },

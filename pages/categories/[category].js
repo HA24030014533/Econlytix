@@ -72,10 +72,27 @@ export const getStaticProps = ({ params }) => {
     };
   });
 
+  const serializeDates = (postList) => postList.map(post => ({
+    ...post,
+    frontmatter: {
+      ...post.frontmatter,
+      date: post.frontmatter.date instanceof Date ? post.frontmatter.date.toISOString() : post.frontmatter.date,
+      display_settings: post.frontmatter.display_settings ? {
+        ...post.frontmatter.display_settings,
+        featured_until: post.frontmatter.display_settings.featured_until instanceof Date
+          ? post.frontmatter.display_settings.featured_until.toISOString()
+          : post.frontmatter.display_settings.featured_until,
+      } : post.frontmatter.display_settings,
+    },
+  }));
+
+  const serializablePosts = serializeDates(posts);
+  const serializableFilterPosts = serializeDates(filterPosts);
+
   return {
     props: {
-      posts,
-      postsByCategories: filterPosts,
+      posts: serializablePosts,
+      postsByCategories: serializableFilterPosts,
       category: params.category,
       categories: categoriesWithPostsCount,
     },

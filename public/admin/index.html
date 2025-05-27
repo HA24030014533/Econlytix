@@ -26,10 +26,18 @@
 
       // Initialize CMS with explicit config path
       window.CMS.init({
-        config: {
-          load_config_file: true,
-          config_file_path: '/admin/config.yml'
+        // Backend configuration is now embedded directly
+        // load_config_file and config_file_path are removed for this test
+        backend: {
+          name: 'github',
+          repo: 'HA24030014533/Econlytix', // From your config.yml
+          branch: 'main',
+          base_url: 'https://api.github.com',
+          auth_type: 'implicit',
+          auth_scope: 'repo' // Explicitly including auth_scope
         }
+        // Note: Other configurations like media_folder and collections are omitted for this specific test.
+        // The CMS might not fully load, but we are checking the initial authentication URL.
       });
     });
   </script>

@@ -19,19 +19,10 @@
 
   <!-- Load Netlify CMS -->
   <script src="https://unpkg.com/netlify-cms@2.10.192/dist/netlify-cms.js"></script>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
   <!-- Initialize CMS -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Initialize Netlify Identity
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
 
       // Initialize CMS with explicit config path
       window.CMS.init({

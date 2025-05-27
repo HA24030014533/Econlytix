@@ -24,8 +24,66 @@ collections:
       - {label: "Categories", name: "categories", widget: "list", required: false}
       - {label: "Tags", name: "tags", widget: "list", required: false}
       - {label: "Summary", name: "summary", widget: "text", required: false}
-      - {label: "Display Area", name: "display_area", widget: "select", options: ["Default", "Homepage Hero", "Homepage Featured", "Sidebar"], default: "Default", required: false}
-      - {label: "Column Priority", name: "column_priority", widget: "select", options: ["Standard", "Full-Width", "Highlight Left", "Highlight Right"], default: "Standard", required: false}
+      - label: "Post Display Settings"
+        name: "display_settings"
+        widget: "object"
+        fields:
+          - {label: "Display Area", name: "display_area", widget: "select", 
+             options: [
+               "Default",
+               "Homepage Hero",
+               "Homepage Featured",
+               "Homepage Grid",
+               "Homepage List",
+               "Sidebar Featured",
+               "Sidebar Recent",
+               "Category Hero",
+               "Category Featured",
+               "Archive Hero",
+               "Archive Featured"
+             ], 
+             default: "Default", 
+             required: false,
+             hint: "Controls where and how the post appears on the site"}
+          - {label: "Layout Style", name: "layout_style", widget: "select",
+             options: [
+               "Standard",
+               "Full-Width",
+               "Compact",
+               "Card",
+               "Featured Large",
+               "Hero Left",
+               "Hero Center",
+               "Hero Right",
+               "Opinion Style",
+               "Grid Item"
+             ],
+             default: "Standard",
+             required: false,
+             hint: "Controls the visual presentation of the post"}
+          - {label: "Column Priority", name: "column_priority", widget: "select",
+             options: [
+               "Standard",
+               "Full-Width",
+               "Highlight Left",
+               "Highlight Right",
+               "Sticky",
+               "Prominent"
+             ],
+             default: "Standard",
+             required: false,
+             hint: "Controls the post's position and emphasis in grid layouts"}
+          - {label: "Display Order", name: "display_order", widget: "number",
+             value_type: "int",
+             required: false,
+             hint: "Lower numbers appear first (optional)"}
+          - {label: "Featured Until", name: "featured_until", widget: "datetime",
+             required: false,
+             hint: "Post will be featured until this date (optional)"}
+          - {label: "Hide from Lists", name: "hide_from_lists", widget: "boolean",
+             default: false,
+             required: false,
+             hint: "Hide this post from category and archive listings"}
       - {label: "Body", name: "body", widget: "markdown"}
   - name: "pages"
     label: "Pages"

@@ -10,7 +10,15 @@ const Post = ({ post, displayMode }) => {
   const { meta_author } = config.metadata;
   const author = post.frontmatter.author ? post.frontmatter.author : meta_author;
   const rTime = readingTime(post.content);
-  const { display_area, column_priority } = post.frontmatter; // Destructure new fields
+  const { display_settings } = post.frontmatter; // Get the new display settings object
+  const {
+    display_area = "Default",
+    layout_style = "Standard",
+    column_priority = "Standard",
+    display_order,
+    featured_until,
+    hide_from_lists
+  } = display_settings || {}; // Destructure with defaults
 
   // Default settings
   let containerClass = "post mb-6 flex flex-col";
@@ -30,77 +38,136 @@ const Post = ({ post, displayMode }) => {
   let authorTextClass = "text-xs text-muted-foreground mt-1";
   let metaUlClass = "flex flex-wrap items-center space-x-3 text-xs mt-1.5 text-muted-foreground";
 
-  // Display mode specific overrides
-  if (displayMode === "hero_left_list") {
-    containerClass = "post mb-5 flex flex-col";
-    titleClass = "text-lg font-semibold mb-1.5 hover:text-primary text-foreground";
-    summaryLength = 80;
-    showAuthor = false;
-    showCategories = false;
-    renderImage = false;
-  } else if (displayMode === "hero_center_headline") {
-    containerClass = "post mb-0 text-center flex flex-col";
-    titleClass = "text-4xl lg:text-5xl font-bold mb-2 hover:text-primary text-foreground"; // Increased font size
-    summaryLength = 120;
-    showAuthor = false;
-    showCategories = false;
-    renderImage = false;
-    metaUlClass = "flex flex-wrap items-center justify-center space-x-3 text-xs mt-2.5 pt-2.5 border-t border-border text-muted-foreground"; // Centered, below summary, with top border
-  } else if (displayMode === "hero_right_opinion") {
-    containerClass = "flex mb-4 items-start"; 
-    imageContainerClass = "w-1/5 mr-3 flex-shrink-0"; 
-    imageClass = "rounded-md aspect-square object-cover";
-    imageWidth = 64;
-    imageHeight = 64;
-    titleClass = "text-sm font-medium hover:text-primary leading-tight mb-0.5 text-foreground";
-    authorTextClass = "text-[11px] text-muted-foreground mt-0.5";
-    showSummary = false;
-    showDate = false;
-    showReadingTime = false;
-    showCategories = false;
-    renderImage = post.frontmatter.image;
-  } else if (displayMode === "featured_large") {
-    titleClass = "text-3xl font-bold mb-3 mt-4 line-clamp-2 h-[4.5rem] text-foreground";
-    summaryLength = Number(summary_length) + 100;
-    imageHeight = 300;
-    imageWidth = 530;
-    showReadMoreButton = true;
-    showCategories = true;
-  } else if (displayMode === "compact_stacked") { 
-    containerClass = "post flex flex-col";
-    imageClass = "rounded w-full h-32 object-cover mb-2";
-    imageHeight = 128;
-    imageWidth = 228;
-    titleClass = "text-lg font-semibold mb-1 mt-0 line-clamp-2 h-[4.5rem] text-foreground";
-    showSummary = false;
-    showReadMoreButton = false;
-    showCategories = false;
-  } else if (displayMode === "center_prominent") { 
-    titleClass = "text-4xl font-bold mb-4 mt-4 text-foreground";
-    summaryLength = Number(summary_length) + 150;
-    imageContainerClass = "hidden";
-    showCategories = true;
-    showReadMoreButton = true;
-    renderImage = false;
+  // Layout style specific overrides
+  switch (layout_style) {
+    case "Compact":
+      containerClass = "post flex flex-col";
+      imageClass = "rounded w-full h-32 object-cover mb-2";
+      imageHeight = 128;
+      imageWidth = 228;
+      titleClass = "text-lg font-semibold mb-1 mt-0 line-clamp-2 h-[4.5rem] text-foreground";
+      showSummary = false;
+      showReadMoreButton = false;
+      showCategories = false;
+      break;
+    case "Card":
+      containerClass = "post bg-card rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200";
+      imageClass = "rounded-t-lg w-full h-48 object-cover";
+      imageHeight = 192;
+      imageWidth = 405;
+      titleClass = "text-xl font-semibold mb-2 px-4 pt-4 text-foreground";
+      metaUlClass = "px-4 pb-4 " + metaUlClass;
+      break;
+    case "Featured Large":
+      titleClass = "text-3xl font-bold mb-3 mt-4 line-clamp-2 h-[4.5rem] text-foreground";
+      summaryLength = Number(summary_length) + 100;
+      imageHeight = 300;
+      imageWidth = 530;
+      showReadMoreButton = true;
+      showCategories = true;
+      break;
+    case "Hero Left":
+      containerClass = "post mb-5 flex flex-col";
+      titleClass = "text-lg font-semibold mb-1.5 hover:text-primary text-foreground";
+      summaryLength = 80;
+      showAuthor = false;
+      showCategories = false;
+      renderImage = false;
+      break;
+    case "Hero Center":
+      containerClass = "post mb-0 text-center flex flex-col";
+      titleClass = "text-4xl lg:text-5xl font-bold mb-2 hover:text-primary text-foreground";
+      summaryLength = 120;
+      showAuthor = false;
+      showCategories = false;
+      renderImage = false;
+      metaUlClass = "flex flex-wrap items-center justify-center space-x-3 text-xs mt-2.5 pt-2.5 border-t border-border text-muted-foreground";
+      break;
+    case "Hero Right":
+      containerClass = "flex mb-4 items-start";
+      imageContainerClass = "w-1/5 mr-3 flex-shrink-0";
+      imageClass = "rounded-md aspect-square object-cover";
+      imageWidth = 64;
+      imageHeight = 64;
+      titleClass = "text-sm font-medium hover:text-primary leading-tight mb-0.5 text-foreground";
+      authorTextClass = "text-[11px] text-muted-foreground mt-0.5";
+      showSummary = false;
+      showDate = false;
+      showReadingTime = false;
+      showCategories = false;
+      break;
+    case "Opinion Style":
+      containerClass = "post border-l-4 border-primary pl-4";
+      titleClass = "text-xl font-semibold mb-2 text-foreground";
+      showAuthor = true;
+      showDate = true;
+      break;
+    case "Grid Item":
+      containerClass = "post grid-item hover:scale-[1.02] transition-transform duration-200";
+      imageClass = "rounded-lg w-full aspect-video object-cover";
+      imageHeight = 200;
+      imageWidth = 400;
+      titleClass = "text-lg font-semibold mt-2 mb-1 text-foreground";
+      break;
   }
 
-  // Apply new layout controls from frontmatter
-  if (display_area === "Homepage Hero") {
-    // Example: Make hero posts span full width and have a special background
-    containerClass = "post col-span-full bg-blue-100 p-4"; // Modify as needed
-  } else if (display_area === "Homepage Featured") {
-    containerClass = "post bg-yellow-100 p-4"; // Modify as needed
-  } else if (display_area === "Sidebar") {
-    containerClass = "post mb-4 p-2 border"; // Modify as needed
+  // Display area specific overrides
+  switch (display_area) {
+    case "Homepage Hero":
+      containerClass += " col-span-full";
+      break;
+    case "Homepage Featured":
+      containerClass += " bg-card/50";
+      break;
+    case "Homepage Grid":
+      containerClass += " grid-item";
+      break;
+    case "Homepage List":
+      containerClass += " list-item";
+      break;
+    case "Sidebar Featured":
+      containerClass += " sidebar-featured";
+      break;
+    case "Sidebar Recent":
+      containerClass += " sidebar-recent";
+      break;
+    case "Category Hero":
+      containerClass += " category-hero";
+      break;
+    case "Category Featured":
+      containerClass += " category-featured";
+      break;
+    case "Archive Hero":
+      containerClass += " archive-hero";
+      break;
+    case "Archive Featured":
+      containerClass += " archive-featured";
+      break;
   }
 
-  if (column_priority === "Full-Width") {
-    // Example: Ensure it takes full width in a grid
-    containerClass += " col-span-full"; // Append to existing classes
-  } else if (column_priority === "Highlight Left") {
-    containerClass += " border-l-4 border-primary"; // Example: Add a left border
-  } else if (column_priority === "Highlight Right") {
-    containerClass += " border-r-4 border-primary"; // Example: Add a right border
+  // Column priority specific overrides
+  switch (column_priority) {
+    case "Full-Width":
+      containerClass += " col-span-full";
+      break;
+    case "Highlight Left":
+      containerClass += " border-l-4 border-primary";
+      break;
+    case "Highlight Right":
+      containerClass += " border-r-4 border-primary";
+      break;
+    case "Sticky":
+      containerClass += " sticky top-4";
+      break;
+    case "Prominent":
+      containerClass += " bg-card/80 shadow-lg";
+      break;
+  }
+
+  // Check if post should be hidden based on featured_until date
+  const shouldHide = featured_until && new Date(featured_until) < new Date();
+  if (shouldHide || hide_from_lists) {
+    return null; // Don't render the post
   }
 
   const TextContent = () => (

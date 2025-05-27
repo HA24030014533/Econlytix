@@ -9,7 +9,7 @@
       "@partials/*": ["layouts/partials/*"],
       "@config/*": ["config/*"],
       "@layoutComponents/*": ["layouts/components/*"],
-      "@layouts/components/*": ["components/*"]
+      "@layouts/components/*": ["layouts/components/*"]
     }
   }
 } 

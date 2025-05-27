@@ -66,19 +66,33 @@ export const getStaticProps = async ({ params }) => {
   const { pagination } = config.settings;
   const posts = getSinglePage(`content/${blog_folder}`);
   
-  const serializablePosts = posts.map(post => ({
-    ...post,
-    frontmatter: {
-      ...post.frontmatter,
-      date: post.frontmatter.date instanceof Date ? post.frontmatter.date.toISOString() : post.frontmatter.date,
-      display_settings: post.frontmatter.display_settings ? {
-        ...post.frontmatter.display_settings,
-        featured_until: post.frontmatter.display_settings.featured_until instanceof Date
-          ? post.frontmatter.display_settings.featured_until.toISOString()
-          : post.frontmatter.display_settings.featured_until,
-      } : post.frontmatter.display_settings,
-    },
-  }));
+  const serializablePosts = posts.map(post => {
+    const frontmatter = post.frontmatter;
+
+    const dateValue = frontmatter.date;
+    const serializableDate = dateValue instanceof Date
+        ? dateValue.toISOString()
+        : (dateValue === undefined ? null : dateValue);
+
+    const featuredUntilValue = frontmatter.display_settings?.featured_until;
+    const serializableFeaturedUntil = featuredUntilValue instanceof Date
+                                      ? featuredUntilValue.toISOString()
+                                      : (featuredUntilValue === undefined ? null : featuredUntilValue);
+    
+    return {
+      ...post,
+      frontmatter: {
+        ...frontmatter,
+        date: serializableDate,
+        display_settings: frontmatter.display_settings
+          ? {
+              ...frontmatter.display_settings,
+              featured_until: serializableFeaturedUntil,
+            }
+          : frontmatter.display_settings,
+      },
+    };
+  });
 
   // Create a default postIndex object instead of reading from _index.md
   const postIndex = {

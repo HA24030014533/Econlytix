@@ -76,16 +76,29 @@ export const getStaticProps = async ({ params }) => {
     if (!individualPost || !individualPost.frontmatter) {
       return individualPost;
     }
-    const newFrontmatter = { ...individualPost.frontmatter };
-    if (newFrontmatter.date instanceof Date) {
-      newFrontmatter.date = newFrontmatter.date.toISOString();
-    }
-    if (newFrontmatter.display_settings && newFrontmatter.display_settings.featured_until instanceof Date) {
-      newFrontmatter.display_settings = {
-        ...newFrontmatter.display_settings,
-        featured_until: newFrontmatter.display_settings.featured_until.toISOString(),
-      };
-    }
+    const frontmatter = individualPost.frontmatter;
+
+    const dateValue = frontmatter.date;
+    const serializableDate = dateValue instanceof Date
+        ? dateValue.toISOString()
+        : (dateValue === undefined ? null : dateValue);
+
+    const featuredUntilValue = frontmatter.display_settings?.featured_until;
+    const serializableFeaturedUntil = featuredUntilValue instanceof Date
+                                      ? featuredUntilValue.toISOString()
+                                      : (featuredUntilValue === undefined ? null : featuredUntilValue);
+
+    const newFrontmatter = {
+      ...frontmatter,
+      date: serializableDate,
+      display_settings: frontmatter.display_settings
+        ? {
+            ...frontmatter.display_settings,
+            featured_until: serializableFeaturedUntil,
+          }
+        : frontmatter.display_settings,
+    };
+    
     return { ...individualPost, frontmatter: newFrontmatter };
   };
 

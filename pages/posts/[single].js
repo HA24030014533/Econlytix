@@ -70,6 +70,12 @@ export const getStaticProps = async ({ params }) => {
       posts: filteredPosts.length,
     };
   });
+
+  // Ensure featured_until is serializable
+  if (post && post.frontmatter && post.frontmatter.display_settings && post.frontmatter.display_settings.featured_until instanceof Date) {
+    post.frontmatter.display_settings.featured_until = post.frontmatter.display_settings.featured_until.toISOString();
+  }
+
   return {
     props: {
       post: post,

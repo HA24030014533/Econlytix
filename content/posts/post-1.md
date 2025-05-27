@@ -89,4 +89,4 @@ While immediate quantum threats remain speculative, Gidney’s research undersco
 
 > As Sirer summarized: “The apocalypse isn’t tomorrow, but the forecast just got darker. Prepare accordingly”[^14](https://cointelegraph.com/explained/blackrock-issues-rare-warning-is-bitcoins-future-at-risk-from-quantum-tech).
 
-<div style="text-align: center">⁂</div>
+<div style={{ textAlign: 'center' }}>⁂</div>

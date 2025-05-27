@@ -332,7 +332,30 @@ export const getStaticProps = async () => {
   const homepage = await getListPage("content/_index.md");
   const { frontmatter } = homepage;
   const { featured_posts, recent_posts, promotion } = frontmatter;
-  const posts = getSinglePage(`content/${blog_folder}`);
+  const rawPosts = getSinglePage(`content/${blog_folder}`);
+  
+  // Serialize date fields in posts
+  const posts = rawPosts.map(post => {
+    if (
+      post.frontmatter &&
+      post.frontmatter.display_settings &&
+      post.frontmatter.display_settings.featured_until &&
+      post.frontmatter.display_settings.featured_until instanceof Date
+    ) {
+      return {
+        ...post,
+        frontmatter: {
+          ...post.frontmatter,
+          display_settings: {
+            ...post.frontmatter.display_settings,
+            featured_until: post.frontmatter.display_settings.featured_until.toISOString(),
+          },
+        },
+      };
+    }
+    return post;
+  });
+
   const categories = getTaxonomy(`content/${blog_folder}`, "categories");
 
   const categoriesWithPostsCount = categories.map((category) => {

@@ -11,8 +11,8 @@ backend:
   # site_domain: your-netlify-site-url.netlify.app
 
 # Update local backend configuration
-local_backend: 
-  url: 'http://localhost:3000/api/cms'
+# local_backend:
+#   url: 'http://localhost:3000/api/cms'
 
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"

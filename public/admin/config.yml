@@ -1,14 +1,10 @@
 backend:
   name: github
-  repo: HA24030014533/Econlytix
+  repo: HA24030014533/Econlytix # User's repo
   branch: main
-  base_url: https://api.github.com # Added this line
-  # auth_endpoint: 'https://api.github.com/authorizations' # Commented out
-  auth_scope: 'repo'
-  auth_type: 'implicit' # Changed from token to implicit
-  # Remove Netlify-specific configuration
-  # open_authoring: true
-  # site_domain: your-netlify-site-url.netlify.app
+  auth_type: implicit # Or 'pkce' if your chosen handler explicitly supports and recommends it
+  base_url: https://econlytix.vercel.app # User's Vercel deployment domain
+  auth_endpoint: /api/auth # Or the actual path to your new auth initiation function
 
 # Update local backend configuration
 # local_backend:

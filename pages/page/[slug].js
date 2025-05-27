@@ -67,30 +67,41 @@ export const getStaticProps = async ({ params }) => {
   const posts = getSinglePage(`content/${blog_folder}`);
   
   const serializablePosts = posts.map(post => {
-    const frontmatter = post.frontmatter;
+    // Ensure post.frontmatter is an object, defaulting to empty if undefined/null
+    const originalFrontmatter = post.frontmatter || {};
+    // Create a mutable copy to work with
+    const newFrontmatter = { ...originalFrontmatter };
 
-    const dateValue = frontmatter.date;
-    const serializableDate = dateValue instanceof Date
+    // Serialize 'date'
+    const dateValue = newFrontmatter.date;
+    newFrontmatter.date = dateValue instanceof Date
         ? dateValue.toISOString()
         : (dateValue === undefined ? null : dateValue);
 
-    const featuredUntilValue = frontmatter.display_settings?.featured_until;
-    const serializableFeaturedUntil = featuredUntilValue instanceof Date
-                                      ? featuredUntilValue.toISOString()
-                                      : (featuredUntilValue === undefined ? null : featuredUntilValue);
-    
+    // Serialize 'display_settings' and its 'featured_until' property
+    if (newFrontmatter.display_settings === undefined) {
+      newFrontmatter.display_settings = null;
+    } else if (newFrontmatter.display_settings !== null && typeof newFrontmatter.display_settings === 'object') {
+      // display_settings is an object, process its featured_until
+      const featuredUntilValue = newFrontmatter.display_settings.featured_until;
+      const serializableFeaturedUntil = featuredUntilValue instanceof Date
+                                        ? featuredUntilValue.toISOString()
+                                        : (featuredUntilValue === undefined ? null : featuredUntilValue);
+      
+      // Update display_settings by creating a new object with the serialized featured_until.
+      // This also ensures we don't mutate an original display_settings object if it was part of a shared reference.
+      newFrontmatter.display_settings = {
+        ...newFrontmatter.display_settings,
+        featured_until: serializableFeaturedUntil,
+      };
+    }
+    // If display_settings was initially null, or some other non-object, non-undefined primitive,
+    // it remains as is (e.g. null stays null). This logic specifically targets 'undefined' becoming 'null',
+    // and processing 'featured_until' if 'display_settings' is an object.
+
     return {
       ...post,
-      frontmatter: {
-        ...frontmatter,
-        date: serializableDate,
-        display_settings: frontmatter.display_settings
-          ? {
-              ...frontmatter.display_settings,
-              featured_until: serializableFeaturedUntil,
-            }
-          : frontmatter.display_settings,
-      },
+      frontmatter: newFrontmatter, // Use the fully processed newFrontmatter
     };
   });
 

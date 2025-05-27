@@ -91,12 +91,12 @@ export const getStaticProps = async ({ params }) => {
     const newFrontmatter = {
       ...frontmatter,
       date: serializableDate,
-      display_settings: frontmatter.display_settings
-        ? {
+      display_settings: (frontmatter.display_settings === undefined || frontmatter.display_settings === null)
+        ? null // Ensure display_settings is null if it's undefined or already null
+        : { // If display_settings is an object, proceed to serialize its contents
             ...frontmatter.display_settings,
-            featured_until: serializableFeaturedUntil,
-          }
-        : frontmatter.display_settings,
+            featured_until: serializableFeaturedUntil, // serializableFeaturedUntil correctly handles undefined featured_until
+          },
     };
     
     return { ...individualPost, frontmatter: newFrontmatter };

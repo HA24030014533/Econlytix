@@ -55,6 +55,22 @@ export const getStaticPaths = () => {
 // category page data
 export const getStaticProps = ({ params }) => {
   const posts = getSinglePage(`content/${blog_folder}`);
+  // Fix for serialization error: ensure display_settings and featured_until are null if undefined
+  posts.forEach(post => {
+    if (post.frontmatter) {
+      // Check if display_settings exists and is an object
+      if (post.frontmatter.display_settings !== undefined && post.frontmatter.display_settings !== null) {
+        // If featured_until is undefined, set it to null
+        if (post.frontmatter.display_settings.featured_until === undefined) {
+          post.frontmatter.display_settings.featured_until = null;
+        }
+      } else if (post.frontmatter.display_settings === undefined) {
+        // If display_settings itself is undefined, set it to null
+        post.frontmatter.display_settings = null;
+      }
+    }
+  });
+
   const filterPosts = posts.filter((post) =>
     post.frontmatter.categories.find((category) =>
       slugify(category).includes(params.category)

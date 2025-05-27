@@ -55,6 +55,13 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params }) => {
   const { regular } = params;
   const allPages = await getRegularPage(regular);
+  
+  if (!allPages) {
+    return {
+      notFound: true
+    };
+  }
+
   return {
     props: {
       slug: regular,

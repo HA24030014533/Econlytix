@@ -8,6 +8,8 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 import Image from "next/image";
+import config from "@config/config.json"; // Import config
+import Link from "next/link"; // Import Link from next/link
 
 import React, { useRef, useState } from "react";
 
@@ -104,7 +106,7 @@ export const NavItems = ({ items, className, onItemClick }) => {
     <motion.div
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        "absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-2 text-base font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 lg:flex lg:space-x-2",
+        "hidden flex-1 flex-row items-center justify-center space-x-2 text-base font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 lg:flex lg:space-x-2",
         className,
       )}
     >
@@ -213,19 +215,24 @@ export const MobileNavToggle = ({
 
 export const NavbarLogo = () => {
   return (
-    <a
-      href="#"
-      className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-4 text-sm font-normal text-foreground"
+    <Link
+      href="/"
+      className="relative z-50 mr-4 flex items-center space-x-2 px-2 py-4 text-sm font-normal text-foreground"
     >
       <Image
-        src="https://assets.aceternity.com/logo-dark.png"
-        alt="logo"
-        width={36}
-        height={36}
-        className="object-contain"
+        src={config.site.logo}
+        alt={config.site.title}
+        width={parseInt(config.site.logo_width) || 150}
+        height={parseInt(config.site.logo_height) || 39}
+        className="object-contain pointer-events-none" // You might want to adjust this if aspect ratio is different
       />
-      <span className="font-medium text-foreground">Startup</span>
-    </a>
+      {/* The logo text is part of the SVG, so we might not need this span if the SVG includes it.
+          If the SVG is just the icon, then this span is correct.
+          For now, assuming the SVG is the full logo including text.
+          If you want text next to an icon-only SVG, uncomment and adjust.
+      <span className="font-medium text-foreground">{config.site.logo_text}</span>
+      */}
+    </Link>
   );
 };
 

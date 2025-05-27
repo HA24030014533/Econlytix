@@ -14,6 +14,13 @@ const Base = ({
   canonical,
   children,
 }) => {
+  const capitalizeWords = (str) => {
+    if (!str) return "";
+    return str
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  };
   const { meta_image, meta_author, meta_description } = config.metadata;
   const { base_url } = config.site;
   const router = useRouter();
@@ -23,9 +30,11 @@ const Base = ({
       <Head>
         {/* title */}
         <title>
-          {plainify(
-            meta_title ? meta_title : title ? title : config.site.title
-          )}
+          {meta_title || title
+            ? `${capitalizeWords(
+                plainify(meta_title ? meta_title : title)
+              )} | ${config.site.title}`
+            : config.site.title}
         </title>
 
         {/* canonical url */}
@@ -33,6 +42,9 @@ const Base = ({
 
         {/* noindex robots */}
         {noindex && <meta name="robots" content="noindex,nofollow" />}
+
+        {/* favicon */}
+        <link rel="icon" href={config.site.favicon} sizes="any" />
 
         {/* meta-description */}
         <meta
@@ -46,9 +58,13 @@ const Base = ({
         {/* og-title */}
         <meta
           property="og:title"
-          content={plainify(
-            meta_title ? meta_title : title ? title : config.site.title
-          )}
+          content={
+            meta_title || title
+              ? `${capitalizeWords(
+                  plainify(meta_title ? meta_title : title)
+                )} | ${config.site.title}`
+              : config.site.title
+          }
         />
 
         {/* og-description */}
@@ -65,9 +81,13 @@ const Base = ({
         {/* twitter-title */}
         <meta
           name="twitter:title"
-          content={plainify(
-            meta_title ? meta_title : title ? title : config.site.title
-          )}
+          content={
+            meta_title || title
+              ? `${capitalizeWords(
+                  plainify(meta_title ? meta_title : title)
+                )} | ${config.site.title}`
+              : config.site.title
+          }
         />
 
         {/* twitter-description */}

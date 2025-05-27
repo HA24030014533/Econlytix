@@ -1,0 +1,59 @@
+<svg viewBox="16 16 68 68" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .pattern-dot {
+        fill: none;
+        stroke: #333333; /* Dark gray */
+        stroke-width: 2; /* Kept from previous refinement */
+      }
+      .pattern-line {
+        stroke: #333333; /* Dark gray */
+        stroke-width: 2; /* Kept from previous refinement */
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+
+  <!--
+    Original Coordinates within a 0 0 100 100 conceptual space:
+    Circle Grid Centers: (25,25), (50,25), (75,25)
+                         (25,50), (50,50), (75,50)
+                         (25,75), (50,75), (75,75)
+    Radius (r) of each circle = 8
+    Stroke-width = 2
+
+    ViewBox is now "16 16 68 68", meaning the content from original coordinate
+    16 to 84 (inclusive of stroke) is mapped to the full favicon space.
+  -->
+
+  <!-- Draw lines first so dots are visually on top -->
+  <g class="pattern-line">
+    <!-- Line from Top-left (25,25) to Mid-left (25,50). Radius r=8 -->
+    <line x1="25" y1="33" x2="25" y2="42" />
+
+    <!-- Line from Mid-left (25,50) to Bottom-mid (50,75). Radius r=8 -->
+    <line x1="30.657" y1="55.657" x2="44.343" y2="69.343" />
+
+    <!-- Line from Bottom-mid (50,75) to Bottom-right (75,75). Radius r=8 -->
+    <line x1="58" y1="75" x2="67" y2="75" />
+
+    <!-- Line from Mid-mid (50,50) to Top-right (75,25). Radius r=8 -->
+    <line x1="55.657" y1="44.343" x2="69.343" y2="30.657" />
+  </g>
+
+  <!-- Draw all dots -->
+  <g class="pattern-dot">
+    <circle cx="25" cy="25" r="8"/>
+    <circle cx="50" cy="25" r="8"/>
+    <circle cx="75" cy="25" r="8"/>
+
+    <circle cx="25" cy="50" r="8"/>
+    <circle cx="50" cy="50" r="8"/>
+    <circle cx="75" cy="50" r="8"/>
+
+    <circle cx="25" cy="75" r="8"/>
+    <circle cx="50" cy="75" r="8"/>
+    <circle cx="75" cy="75" r="8"/>
+  </g>
+</svg>

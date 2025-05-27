@@ -1,13 +1,13 @@
 {
   "site": {
-    "title": "Econlytix",
+    "title": "ECONLYTIX",
     "base_url": "/",
-    "favicon": "/images/favicon.png",
-    "logo": "/images/logo.png",
-    "logo_white": "/images/logo-light.png",
+    "favicon": "/images/ico.svg",
+    "logo": "/images/logo.svg",
+    "logo_white": "/images/logo.svg",
     "logo_width": "150",
     "logo_height": "39",
-    "logo_text": "Econlytix"
+    "logo_text": "ECONLYTIX"
   },
   "settings": {
     "theme_switcher": true,
@@ -22,11 +22,11 @@
   },
   "params": {
     "tag_manager_id": "",
-    "footer_content": "Lorem ipsum dolor sit amt, conse adip iscing. donec iaculis tempasus laoreet. Libero ullam rgscper.",
-    "copyright": "Copyright ©2025 Econlytix. All Rights Reserved."
+    "footer_content": "Navigating Change in Finance, Tech, and Governance",
+    "copyright": "Copyright ©2025 ECONLYTIX. All Rights Reserved."
   },
   "metadata": {
-    "meta_author": "Econlytix",
+    "meta_author": "ECONLYTIX",
     "meta_image": "/images/og-image.png",
     "meta_description": "Econlytix Personal Blog Template"
   },

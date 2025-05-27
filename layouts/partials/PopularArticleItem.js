@@ -1,7 +1,8 @@
 import ImageFallback from "@layouts/components/ImageFallback";
 import Link from "next/link";
 import { FaRegClock } from "react-icons/fa";
-import { humanize, plainify, slugify } from "@lib/utils/textConverter";
+import { plainify, slugify } from "@lib/utils/textConverter"; // Removed humanize
+import dateFormat from "@lib/utils/dateFormat"; // Added dateFormat
 
 const PopularArticleItem = ({ article }) => {
   const { frontmatter, content } = article;
@@ -11,7 +12,7 @@ const PopularArticleItem = ({ article }) => {
   const readTime = readingTime || Math.ceil(plainify(content).split(" ").length / 200) + " min read";
 
   return (
-    <div className="popular-article-item flex items-start space-x-4 rounded-md border border-gray-200 p-4 transition-shadow duration-200 hover:shadow-md">
+    <div className="popular-article-item flex items-start space-x-4 rounded-md border border-gray-200 p-5 transition-shadow duration-200 hover:shadow-md"> {/* Changed p-4 to p-5 */}
       <div className="flex-grow">
         <h3 className="mb-1.5 text-lg font-semibold leading-tight text-gray-800">
           <Link href={`/posts/${article.slug}`} className="hover:text-primary">
@@ -22,7 +23,7 @@ const PopularArticleItem = ({ article }) => {
           {date && (
             <span className="flex items-center">
               <FaRegClock className="mr-1" />
-              {humanize(date)}
+              {dateFormat(date)}
             </span>
           )}
           <span>{readTime}</span>

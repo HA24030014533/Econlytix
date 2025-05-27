@@ -176,15 +176,15 @@ const Post = ({ post, displayMode }) => {
   }
 
   const TextContent = () => (
-    <div className="flex flex-col flex-grow"> {/* TextContent itself is a flex container that grows */}
-      <div className="flex-grow"> {/* This inner div groups title and summary, allowing them to push meta down */}
+    <div className="flex flex-col flex-grow p-4"> {/* Added p-4 for padding. TextContent itself is a flex container that grows */}
+      <div className="flex-grow mb-3"> {/* Added mb-3. This inner div groups title and summary, allowing them to push meta down */}
         <h3 className={titleClass}>
           <Link href={`/${blog_folder}/${post.slug}`} className="block">
             {post.frontmatter.title}
           </Link>
         </h3>
         {showSummary && (
-          <p className={`mt-2.5 text-sm text-foreground ${displayMode === 'hero_center_headline' ? 'px-4 md:px-8 lg:px-12' : ''} line-clamp-3`}>
+          <p className={`mt-1.5 text-sm text-foreground ${displayMode === 'hero_center_headline' ? 'px-4 md:px-8 lg:px-12' : ''} line-clamp-3`}> {/* Changed mt-2.5 to mt-1.5 */}
             {post.content?.slice(0, summaryLength)}...
           </p>
         )}

@@ -41,7 +41,7 @@ export function NavbarDemo({ isHomepage }) { // Accept isHomepage prop
         <NavBody>
           <NavbarLogo />
           <NavItems items={siteNavItems} />
-          <div className="flex items-center justify-end flex-1 relative z-10">
+          <div className="flex items-center justify-end relative z-10"> {/* Removed flex-1 */}
             <ThemeSwitcher />
           </div>
           {/* Buttons are not in menu.json, so they are commented out for now.

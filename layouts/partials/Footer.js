@@ -12,15 +12,6 @@ const Footer = () => {
   return (
     <footer className="section relative overflow-hidden mt-12 pt-[70px] pb-[50px]"> {/* overflow-hidden is key */}
       {/* Map image - testing clipping with fill={true} */}
-      <ImageFallback
-        className="object-cover object-center" /* next/image with fill={true} handles absolute positioning */
-        src="/images/map.svg"
-        alt="footer map background"
-        fill={true}
-        quality={90}
-        sizes="100vw"
-        priority={true}
-      />
       {/* Shape image removed for this test step */}
       <div className="container text-center relative z-10"> {/* Content must be on top */}
         <div className="mb-6 inline-flex">

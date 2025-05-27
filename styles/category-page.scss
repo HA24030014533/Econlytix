@@ -10,7 +10,7 @@
     padding-right: 2rem;
   }
   @media (min-width: 1024px) { // lg breakpoint
-    max-width: 1200px; // Or your theme's max-width for content
+    max-width: 1440px; // Increased max-width for wider layout
     margin-left: auto;
     margin-right: auto;
   }
@@ -51,8 +51,8 @@
 
   .image-fallback img { // Target the img tag within ImageFallback
     width: 100%;
-    height: auto; // Maintain aspect ratio, or set fixed height if needed
-    max-height: 450px; // Max height for the large image
+    height: auto; // Maintain aspect ratio, height is now controlled by Tailwind on container
+    // max-height: 280px; // Removed as height is controlled by Tailwind class h-56 on the Link container
     object-fit: cover; // Ensure image covers the area
   }
 

@@ -1,0 +1,47 @@
+{
+  "compilerOptions": {
+    "target": "es5", // Added target for broader compatibility
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true, // Changed to true for better type checking
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "baseUrl": ".", // Added baseUrl
+    "paths": { // Added paths
+      "@layouts/*": ["layouts/*"],
+      "@lib/*": ["lib/*"],
+      "@components/*": ["components/*"],
+      "@shortcodes/*": ["layouts/shortcodes/*"],
+      "@partials/*": ["layouts/partials/*"],
+      "@config/*": ["config/*"],
+      "@layoutComponents/*": ["layouts/components/*"],
+      "@context/*": ["context/*"], // Added from previous attempt
+      "@hooks/*": ["hooks/*"], // Added from previous attempt
+      "@styles/*": ["styles/*"], // Added from previous attempt
+      "@content/*": ["content/*"], // Added from previous attempt
+      "@public/*": ["public/*"] // Added from previous attempt
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js", // Added .js
+    "**/*.jsx" // Added .jsx
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

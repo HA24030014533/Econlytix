@@ -1,7 +1,8 @@
 import ImageFallback from "@layouts/components/ImageFallback";
 import Link from "next/link";
 import { FaRegClock, FaRegCommentDots } from "react-icons/fa";
-import { humanize, plainify, slugify } from "@lib/utils/textConverter";
+import { plainify, slugify } from "@lib/utils/textConverter"; // Removed humanize
+import dateFormat from "@lib/utils/dateFormat"; // Added dateFormat
 
 const FeaturedArticleItem = ({ article }) => {
   const { frontmatter, summary, content } = article;
@@ -14,13 +15,13 @@ const FeaturedArticleItem = ({ article }) => {
   return (
     <div className="featured-article-item overflow-hidden rounded-lg bg-white shadow-lg">
       {image && (
-        <Link href={`/posts/${article.slug}`} className="block">
+        <Link href={`/posts/${article.slug}`} className="block h-[360px]"> {/* Increased fixed height to 360px */}
           <ImageFallback
             src={image}
-            width={800} // Adjust as needed
-            height={450} // Adjust as needed
+            width={640} // Approx 16:9 for 360px height
+            height={360} // Fixed height 360px
             alt={title}
-            className="w-full object-cover"
+            className="w-full h-full object-cover" // Image fills this container
           />
         </Link>
       )}
@@ -56,7 +57,7 @@ const FeaturedArticleItem = ({ article }) => {
           {date && (
             <span className="flex items-center">
               <FaRegClock className="mr-1.5" />
-              {humanize(date)}
+              {dateFormat(date)}
             </span>
           )}
           <span>{readTime}</span>

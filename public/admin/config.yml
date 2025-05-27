@@ -2,7 +2,7 @@ backend:
   name: github
   repo: HA24030014533/Econlytix
   branch: main
-  auth_endpoint: 'https://api.github.com/authorizations'
+  # auth_endpoint: 'https://api.github.com/authorizations' # Commented out
   auth_scope: 'repo'
   auth_type: 'token'
   # Remove Netlify-specific configuration

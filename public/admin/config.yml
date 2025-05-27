@@ -4,7 +4,7 @@ backend:
   branch: main
   # auth_endpoint: 'https://api.github.com/authorizations' # Commented out
   auth_scope: 'repo'
-  auth_type: 'token'
+  auth_type: 'implicit' # Changed from token to implicit
   # Remove Netlify-specific configuration
   # open_authoring: true
   # site_domain: your-netlify-site-url.netlify.app

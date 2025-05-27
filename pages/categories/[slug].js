@@ -14,7 +14,7 @@ const standardFont = { className: '' };
 
 const CategoryPage = ({ slug, posts }) => {
   const router = useRouter();
-  const { title } = config.site;
+  // const { title } = config.site; // Site title is handled by Baseof
 
   if (router.isFallback) {
     return <div>Loading...</div>;
@@ -30,7 +30,7 @@ const CategoryPage = ({ slug, posts }) => {
 
 
   return (
-    <Baseof title={`${capitalizedSlug} - ${title}`}>
+    <Baseof title={capitalizedSlug}> {/* Pass only the page-specific title part */}
       <div className={`section ${standardFont.className} category-page-container py-10`}> {/* Added py-10 for vertical padding */}
         <div className="w-full"> {/* Changed from 'container mx-auto px-4' to 'w-full' */}
           {/* Apply styles similar to .category-title from SCSS */}
@@ -78,7 +78,7 @@ const CategoryPage = ({ slug, posts }) => {
             </div>
           ) : (
             <p className="text-center text-lg text-gray-600">
-              No posts found in the category "{capitalizedSlug}".
+              No posts found in the category &quot;{capitalizedSlug}&quot;.
             </p>
           )}
         </div>

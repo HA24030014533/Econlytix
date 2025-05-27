@@ -80,16 +80,16 @@ const Post = ({ post, displayMode }) => {
       summaryLength = 120;
       showAuthor = false;
       showCategories = false;
-      renderImage = false;
+      renderImage = false;  // This ensures the image is not rendered in the Post component
       metaUlClass = "flex flex-wrap items-center justify-center space-x-3 text-xs mt-2.5 pt-2.5 border-t border-border text-muted-foreground";
       break;
     case "Hero Right":
-      containerClass = "flex mb-4 items-start";
-      imageContainerClass = "w-1/5 mr-3 flex-shrink-0";
+      containerClass = "flex mb-3 items-start";
+      imageContainerClass = "w-16 mr-3 flex-shrink-0";
       imageClass = "rounded-md aspect-square object-cover";
       imageWidth = 64;
       imageHeight = 64;
-      titleClass = "text-sm font-medium hover:text-primary leading-tight mb-0.5 text-foreground";
+      titleClass = "text-sm font-medium hover:text-primary leading-tight mb-0.5 text-foreground line-clamp-2";
       authorTextClass = "text-[11px] text-muted-foreground mt-0.5";
       showSummary = false;
       showDate = false;
@@ -170,6 +170,11 @@ const Post = ({ post, displayMode }) => {
     return null; // Don't render the post
   }
 
+  // Special handling for hero center headline to prevent double image rendering
+  if (displayMode === "hero_center_headline") {
+    renderImage = false;
+  }
+
   const TextContent = () => (
     <div className="flex flex-col flex-grow"> {/* TextContent itself is a flex container that grows */}
       <div className="flex-grow"> {/* This inner div groups title and summary, allowing them to push meta down */}
@@ -227,25 +232,25 @@ const Post = ({ post, displayMode }) => {
 
   if (displayMode === "hero_right_opinion") {
     return (
-      <div className={containerClass}>
+      <div className="flex mb-6 items-start">
         {renderImage && (
-          <div className={imageContainerClass}>
+          <div className="w-16 h-16 mr-4 flex-shrink-0">
             <ImageFallback
-              className={imageClass}
+              className="rounded-none w-16 h-16 object-cover aspect-square"
               src={post.frontmatter.image}
               alt={post.frontmatter.title}
-              width={imageWidth}
-              height={imageHeight}
+              width={64}
+              height={64}
             />
           </div>
         )}
-        <div className={`${renderImage ? "w-4/5" : "w-full"} flex flex-col`}>
-          <h3 className={`${titleClass} flex-grow`}> {/* Title grows to push author info down */}
+        <div className="flex flex-col justify-center">
+          <h3 className="text-base font-light leading-tight mb-1 text-foreground">
             <Link href={`/${blog_folder}/${post.slug}`} className="block">
               {post.frontmatter.title}
             </Link>
           </h3>
-          <p className={authorTextClass}> {/* Author info (meta for this mode) */}
+          <p className="text-base text-muted-foreground mt-0.5">
             By {author}
           </p>
         </div>

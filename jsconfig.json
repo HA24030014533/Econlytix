@@ -6,10 +6,7 @@
       "@lib/*": ["lib/*"],
       "@components/*": ["components/*"],
       "@shortcodes/*": ["layouts/shortcodes/*"],
-      "@partials/*": ["layouts/partials/*"],
-      "@config/*": ["config/*"],
-      "@layoutComponents/*": ["layouts/components/*"],
-      "@layouts/components/*": ["layouts/components/*"]
+      "@partials/*": ["layouts/partials/*"]
     }
   }
 } 

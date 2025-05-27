@@ -24,6 +24,7 @@ collections:
       - {label: "Categories", name: "categories", widget: "list", required: false}
       - {label: "Tags", name: "tags", widget: "list", required: false}
       - {label: "Summary", name: "summary", widget: "text", required: false}
+      - {label: "Hero Bullet Point", name: "hero_bullet", widget: "string", required: false, hint: "Bullet point for hero position (optional)"}
       - label: "Post Display Settings"
         name: "display_settings"
         widget: "object"

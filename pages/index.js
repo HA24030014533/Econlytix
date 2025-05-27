@@ -12,6 +12,7 @@ import { sortByDate } from "@lib/utils/sortFunctions";
 import { markdownify } from "@lib/utils/textConverter";
 import Link from "next/link";
 import { FaRegCalendar } from "react-icons/fa";
+import readingTime from "@lib/utils/readingTime";
 const { blog_folder, pagination } = config.settings;
 
 const Home = ({
@@ -62,45 +63,157 @@ const Home = ({
           <div className="flex flex-col lg:flex-row lg:space-x-4">
             {/* Left Column - w-full on small, lg:w-1/4 on large */}
             <div className="w-full lg:w-1/4 lg:px-2 mb-8 lg:mb-0 space-y-5">
-              {heroPost0 && <Post post={heroPost0} displayMode="hero_left_list" />}
-              {heroPost1 && <Post post={heroPost1} displayMode="hero_left_list" />}
-              {heroPost2 && <Post post={heroPost2} displayMode="hero_left_list" />}
+              {/* Top story: headline, summary, and bullet for related story */}
+              {heroPost0 && (
+                <div className="pb-6 border-b border-border">
+                  <h2 className="text-3xl font-extrabold mb-2 leading-tight text-foreground">
+                    <Link href={`/${blog_folder}/${heroPost0.slug}`} className="hover:text-primary">
+                      {heroPost0.frontmatter.title}
+                    </Link>
+                  </h2>
+                  <p className="text-lg text-foreground mb-3">
+                    {heroPost0.frontmatter.summary ? heroPost0.frontmatter.summary : heroPost0.content.slice(0, 120) + '...'}
+                  </p>
+                  {/* Bullet for related story, only if hero_bullet is set */}
+                  {heroPost0.frontmatter.hero_bullet && (
+                    <ul className="list-disc pl-5">
+                      <li className="font-bold text-base text-foreground">
+                        {heroPost0.frontmatter.hero_bullet}
+                      </li>
+                    </ul>
+                  )}
+                  {/* Comments and reading time */}
+                  <div className="flex items-center text-xs text-muted-foreground mt-2 space-x-4">
+                    <span className="inline-flex items-center">
+                      <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                      </svg>
+                      523
+                    </span>
+                    <span className="inline-flex items-center">
+                      <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                      </svg>
+                      {readingTime(heroPost0.content)}
+                    </span>
+                  </div>
+                </div>
+              )}
+              {/* Next two stories: headline only */}
+              {heroPost1 && (
+                <div className="pt-6 border-b border-border">
+                  <h3 className="text-xl font-bold mb-1 text-foreground">
+                    <Link href={`/${blog_folder}/${heroPost1.slug}`} className="hover:text-primary">
+                      {heroPost1.frontmatter.title}
+                    </Link>
+                  </h3>
+                  <p className="text-base text-foreground">
+                    {heroPost1.frontmatter.summary ? heroPost1.frontmatter.summary : heroPost1.content.slice(0, 80) + '...'}
+                  </p>
+                  {/* Comments and reading time */}
+                  <div className="flex items-center text-xs text-muted-foreground mt-2 space-x-4">
+                    <span className="inline-flex items-center">
+                      <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                      </svg>
+                      243
+                    </span>
+                    <span className="inline-flex items-center">
+                      <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                      </svg>
+                      {readingTime(heroPost1.content)}
+                    </span>
+                  </div>
+                </div>
+              )}
+              {heroPost2 && (
+                <div className="pt-6">
+                  <h3 className="text-xl font-bold mb-1 text-foreground">
+                    <Link href={`/${blog_folder}/${heroPost2.slug}`} className="hover:text-primary">
+                      {heroPost2.frontmatter.title}
+                    </Link>
+                  </h3>
+                  <p className="text-base text-foreground">
+                    {heroPost2.frontmatter.summary ? heroPost2.frontmatter.summary : heroPost2.content.slice(0, 80) + '...'}
+                  </p>
+                  {/* Comments and reading time */}
+                  <div className="flex items-center text-xs text-muted-foreground mt-2 space-x-4">
+                    <span className="inline-flex items-center">
+                      <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                      </svg>
+                      848
+                    </span>
+                    <span className="inline-flex items-center">
+                      <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                      </svg>
+                      {readingTime(heroPost2.content)}
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
 
-            {/* Center Column - w-full on small, lg:w-1/2 on large. Added flex for centering. */}
-            <div className="w-full lg:w-1/2 lg:px-2 mb-8 lg:mb-0 flex flex-col items-center text-center">
+            {/* Center Column - w-full on small, lg:w-1/2 on large */}
+            <div className="w-full lg:w-1/2 lg:px-2 mb-8 lg:mb-0">
               {heroPostCenter && (
-                <>
+                <div className="flex flex-col items-center text-center">
                   {heroPostCenter.frontmatter.image && (
-                    <div className="mb-4 w-full max-w-2xl"> {/* Increased max-width from xl to 2xl */}
+                    <div className="mb-4 w-full">
                       <ImageFallback
-                        className="rounded-lg w-full h-auto object-cover aspect-[16/10] shadow-md" /* Changed aspect ratio */
+                        className="rounded-lg w-full h-auto object-cover aspect-[16/9] shadow-md"
                         src={heroPostCenter.frontmatter.image}
                         alt={heroPostCenter.frontmatter.title}
                         width={800}
-                        height={500} /* Adjusted height prop to match 16:10 for 800 width */
+                        height={450}
                         priority={true}
                       />
                     </div>
                   )}
-                  {/* Post content (headline, summary, meta) below image */}
-                  <div className="w-full"> {/* Ensure text content also respects centering */}
-                    <Post post={heroPostCenter} displayMode="hero_center_headline" />
+                  <h1 className="text-4xl lg:text-5xl font-extrabold mb-3 leading-tight text-foreground">
+                    <Link href={`/${blog_folder}/${heroPostCenter.slug}`} className="hover:text-primary">
+                      {heroPostCenter.frontmatter.title}
+                    </Link>
+                  </h1>
+                  <p className="text-lg text-foreground mb-4 max-w-2xl mx-auto">
+                    {heroPostCenter.frontmatter.summary ? heroPostCenter.frontmatter.summary : heroPostCenter.content.slice(0, 140) + '...'}
+                  </p>
+                  <div className="flex items-center justify-center text-xs text-muted-foreground space-x-6">
+                    <span className="inline-flex items-center">
+                      <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                      </svg>
+                      243
+                    </span>
+                    <span className="inline-flex items-center">
+                      <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                      </svg>
+                      {readingTime(heroPostCenter.content)}
+                    </span>
                   </div>
-                </>
+                </div>
               )}
             </div>
 
             {/* Right Column (Opinion) - w-full on small, lg:w-1/4 on large */}
             <div className="w-full lg:w-1/4 lg:px-2">
-              <h2 className="text-xl font-semibold mb-4 pb-2 border-b-2 border-primary text-foreground">Opinion</h2>
-              {heroOpinionPosts.length > 0 ? (
-                heroOpinionPosts.map((post) => (
-                  <Post key={post.slug} post={post} displayMode="hero_right_opinion" />
-                ))
-              ) : (
-                <p className="text-sm text-gray-600 dark:text-gray-400">No opinion posts available.</p>
-              )}
+              <h2 className="text-3xl font-extrabold mb-6 text-left" style={{fontFamily: 'serif'}}>Opinion</h2>
+              <div className="space-y-6">
+                {heroOpinionPosts.length > 0 ? (
+                  heroOpinionPosts.map((post) => (
+                    <Post key={post.slug} post={post} displayMode="hero_right_opinion" />
+                  ))
+                ) : (
+                  <p className="text-sm text-gray-600 dark:text-gray-400">No opinion posts available.</p>
+                )}
+              </div>
             </div>
           </div>
         </div>

@@ -9,7 +9,9 @@ import {
   MobileNavHeader,
   MobileNavToggle,
   MobileNavMenu,
-} from "./resizable-navbar"; // Fixed import path
+  NavItem,
+  NavFooter,
+} from "../ui/resizable-navbar";
 import { useState } from "react";
 import menu from "@config/menu.json"; // Assuming jsconfig.json handles this path
 import ThemeSwitcher from "@layouts/components/ThemeSwitcher";

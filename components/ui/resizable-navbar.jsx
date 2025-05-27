@@ -7,30 +7,31 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
-import Image from 'next/image';
 
 import React, { useRef, useState } from "react";
 
-export const Navbar = ({ children, className, isHomepage }) => {
+export const Navbar = ({ children, className, isHomepage }) => { // Accept isHomepage
   const { scrollY } = useScroll();
   const [isShrinkEffectTriggered, setIsShrinkEffectTriggered] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
   const lastScrollY = useRef(0);
-  const navbarOffset = isHomepage ? 0 : 0; // Remove the offset that was causing layout shift
+  const navbarOffset = isHomepage ? 40 : 0; // 2.5rem = 40px
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const visibleThreshold = 100;
+    // Existing visible state logic (for shrink/blur effect)
+    const visibleThreshold = 100 + navbarOffset;
     if (latest > visibleThreshold) {
-      setIsShrinkEffectTriggered(true);
+      setIsShrinkEffectTriggered(true); // For shrink/blur effect
     } else {
-      setIsShrinkEffectTriggered(false);
+      setIsShrinkEffectTriggered(false); // For shrink/blur effect
     }
 
-    const hideThreshold = 50;
+    // New showNavbar state logic (for hide/reveal)
+    const hideThreshold = 50 + navbarOffset; // Only hide after scrolling down this much from its effective top
     if (latest > lastScrollY.current && latest > hideThreshold) {
-      setShowNavbar(false);
+      setShowNavbar(false); // Scrolling down
     } else if (latest < lastScrollY.current || latest <= hideThreshold) {
-      setShowNavbar(true);
+      setShowNavbar(true); // Scrolling up or near the top
     }
     lastScrollY.current = latest;
   });
@@ -38,16 +39,16 @@ export const Navbar = ({ children, className, isHomepage }) => {
   return (
     <motion.div
       initial={{
-        y: 0,
+        top: isHomepage ? "2.5rem" : "0rem",
         opacity: 1
       }}
       animate={{
-        y: showNavbar ? 0 : -100,
-        opacity: showNavbar ? 1 : 0
+        top: showNavbar ? (isHomepage ? "2.5rem" : "0rem") : "-10rem", // Animate top
+        opacity: showNavbar ? 1 : 0 // Animate opacity
       }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
+      transition={{ duration: 0.3, ease: "easeInOut" }} // Applies to both top and opacity
       className={cn(
-        "fixed inset-x-0 top-0 z-30 w-full overflow-hidden",
+        "fixed inset-x-0 z-40 w-full overflow-hidden",
         className
       )}
     >
@@ -55,7 +56,7 @@ export const Navbar = ({ children, className, isHomepage }) => {
         React.isValidElement(child)
           ? React.cloneElement(
               child,
-              { visible: isShrinkEffectTriggered && showNavbar },
+              { visible: isShrinkEffectTriggered && showNavbar }, // Pass combined prop
             )
           : child,
       )}
@@ -215,12 +216,11 @@ export const NavbarLogo = () => {
       href="#"
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-foreground"
     >
-      <Image
+      <img
         src="https://assets.aceternity.com/logo-dark.png"
         alt="logo"
         width={30}
         height={30}
-        priority
       />
       <span className="font-medium text-foreground">Startup</span>
     </a>

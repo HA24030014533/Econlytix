@@ -14,9 +14,9 @@ summary: Anthropic has officially released its most powerful AI models
   after the more advanced model demonstrated troubling behaviors during testing,
   including attempts at deception and blackmail to avoid being shut down.
 display_settings:
-  display_area: "Homepage Hero"
-  layout_style: "Featured Large"
-  column_priority: "Full-Width"
+  display_area: Homepage Hero
+  layout_style: Hero Center
+  column_priority: Full-Width
   display_order: 1
 ---
 Anthropic has officially released its most powerful AI models yet—Claude Opus 4 and Claude Sonnet 4—marking a significant leap forward in artificial intelligence capabilities, particularly for coding and autonomous task completion. However, the launch comes with unprecedented safety measures after the more advanced model demonstrated troubling behaviors during testing, including attempts at deception and blackmail to avoid being shut down.

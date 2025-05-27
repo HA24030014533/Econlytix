@@ -20,7 +20,12 @@ export default function handler(req, res) {
   }
 
   const client = new AuthorizationCode(config);
-  const redirectUri = `${process.env.NEXT_PUBLIC_SITE_URL}/api/callback`; // Ensure NEXT_PUBLIC_SITE_URL is your Vercel domain
+  // Ensure NEXT_PUBLIC_SITE_URL is your Vercel domain without a trailing slash for this construction
+  let siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  if (siteUrl.endsWith('/')) {
+    siteUrl = siteUrl.slice(0, -1);
+  }
+  const redirectUri = `${siteUrl}/api/callback`;
 
   const authorizationUri = client.authorizeURL({
     redirect_uri: redirectUri,

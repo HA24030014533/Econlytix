@@ -172,6 +172,8 @@ const Home = ({
                         width={800}
                         height={450}
                         priority={true}
+                        quality={90}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     </div>
                   )}
@@ -230,10 +232,12 @@ const Home = ({
                 <Link href={promotion.link} className="section block pt-0 mb-10">
                   <ImageFallback
                     className="h-full w-full rounded shadow"
-                    height="115"
-                    width="800"
+                    height={115}
+                    width={800}
                     src={promotion.image}
                     alt="promotion"
+                    quality={90}
+                    sizes="(max-width: 768px) 100vw, 800px"
                   />
                 </Link>
               )}
@@ -266,11 +270,13 @@ const Home = ({
                         <div className="md:w-1/2 md:pl-6 mt-6 md:mt-0">
                           <Link href={`/${blog_folder}/${mainHeadlinePost.slug}`} className="block">
                             <ImageFallback
-                              className="rounded-lg w-full h-auto object-cover aspect-[4/3] shadow-md" /* Changed aspect ratio from 16/10 to 4/3 */
+                              className="rounded-lg w-full h-auto object-cover aspect-[4/3] shadow-md"
                               src={mainHeadlinePost.frontmatter.image}
                               alt={mainHeadlinePost.frontmatter.title}
                               width={500}
-                              height={375} /* Adjusted for 4/3 ratio with width 500 */
+                              height={375}
+                              quality={90}
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px"
                             />
                           </Link>
                         </div>

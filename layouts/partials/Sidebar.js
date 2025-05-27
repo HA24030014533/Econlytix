@@ -92,6 +92,8 @@ const Sidebar = ({ posts, categories, className }) => {
                         alt={post.frontmatter.title}
                         width={105}
                         height={85}
+                        quality={90}
+                        sizes="(max-width: 768px) 85px, 105px"
                       />
                     )}
                     <div>
@@ -127,6 +129,8 @@ const Sidebar = ({ posts, categories, className }) => {
                         alt={post.frontmatter.title}
                         width={105}
                         height={85}
+                        quality={90}
+                        sizes="(max-width: 768px) 85px, 105px"
                       />
                     )}
                     <div>

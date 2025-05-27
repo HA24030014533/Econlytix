@@ -241,6 +241,8 @@ const Post = ({ post, displayMode }) => {
               alt={post.frontmatter.title}
               width={64}
               height={64}
+              quality={90}
+              sizes="64px"
             />
           </div>
         )}
@@ -268,6 +270,9 @@ const Post = ({ post, displayMode }) => {
             alt={post.frontmatter.title}
             width={imageWidth}
             height={imageHeight}
+            quality={90}
+            sizes={`(max-width: 768px) ${imageWidth}px, ${imageWidth * 1.5}px`}
+            priority={displayMode === "hero_center_headline" || displayMode === "featured_large"}
           />
           {showCategories && (
             <ul className="absolute top-2 left-2 flex flex-wrap items-center">

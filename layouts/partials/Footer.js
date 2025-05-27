@@ -17,6 +17,9 @@ const Footer = () => {
         src="/images/map.svg"
         alt="footer map background"
         fill={true}
+        quality={90}
+        sizes="100vw"
+        priority={true}
       />
       {/* Shape image removed for this test step */}
       <div className="container text-center relative z-10"> {/* Content must be on top */}

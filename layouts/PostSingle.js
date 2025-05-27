@@ -46,10 +46,12 @@ const PostSingle = ({
                   {image && (
                     <Image
                       src={image}
-                      height="500"
-                      width="1000"
+                      height={500}
+                      width={1000}
                       alt={title}
                       className="rounded-lg"
+                      priority={true}
+                      quality={90}
                     />
                   )}
                   <ul className="absolute top-2 left-2 flex flex-wrap items-center">

@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Content Manager</title>
-  <!-- Standard way to link config.yml, assuming it's in the same directory as index.html -->
-  <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url">
-  <!-- Add GitHub OAuth configuration -->
+  <!-- Include the CMS configuration -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
+    // Initialize the CMS configuration
     window.CMS_CONFIG = {
       backend: {
         name: 'github',
@@ -16,16 +16,18 @@
         auth_endpoint: 'https://api.github.com/authorizations',
         auth_scope: 'repo',
         auth_type: 'token'
-      }
+      },
+      local_backend: true,
+      load_config_file: true,
+      config_file_path: '/admin/config.yml'
     };
   </script>
 </head>
 <body>
-  <div id="nc-root"></div> <!-- Explicit mount point for Decap CMS -->
-  <!-- Decap CMS script, loaded at the end -->
+  <!-- Include the CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <!-- Initialize CMS with GitHub OAuth -->
   <script>
+    // Initialize the CMS
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
         if (!user) {
@@ -36,5 +38,6 @@
       });
     }
   </script>
+  <div id="nc-root"></div>
 </body>
 </html>

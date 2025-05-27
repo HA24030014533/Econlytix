@@ -2,6 +2,9 @@ backend:
   name: github
   repo: HA24030014533/Econlytix
   branch: main
+  auth_endpoint: 'https://api.github.com/authorizations'
+  auth_scope: 'repo'
+  auth_type: 'token'
   # Remove Netlify-specific configuration
   # open_authoring: true
   # site_domain: your-netlify-site-url.netlify.app
@@ -19,8 +22,8 @@ collections:
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
     fields: # The fields for each document, usually in front matter
       - {label: "Layout", name: "layout", widget: "hidden", default: "post"}
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Title", name: "title", widget: "string", required: true}
+      - {label: "Publish Date", name: "date", widget: "datetime", required: true}
       - {label: "Author", name: "author", widget: "string", required: false}
       - {label: "Featured Image", name: "image", widget: "image", required: false}
       - {label: "Categories", name: "categories", widget: "list", required: false}
@@ -87,7 +90,7 @@ collections:
              default: false,
              required: false,
              hint: "Hide this post from category and archive listings"}
-      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Body", name: "body", widget: "markdown", required: true}
   - name: "pages"
     label: "Pages"
     files:

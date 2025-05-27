@@ -23,22 +23,12 @@
   <!-- Initialize CMS -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-
       // Initialize CMS with explicit config path
       window.CMS.init({
-        // Backend configuration is now embedded directly
-        // load_config_file and config_file_path are removed for this test
-        backend: {
-          name: 'github',
-          repo: 'HA24030014533/Econlytix', // From your config.yml
-          branch: 'main',
-          // base_url: 'https://api.github.com', // Removed
-          auth_type: 'implicit', // Changed back to implicit
-          auth_scope: 'repo',
-          auth_endpoint: 'https://github.com/login/oauth/authorize' // Added correct auth endpoint
+        config: {
+          load_config_file: true,
+          config_file_path: '/admin/config.yml'
         }
-        // Note: Other configurations like media_folder and collections are omitted for this specific test.
-        // The CMS might not fully load, but we are checking the initial authentication URL.
       });
     });
   </script>

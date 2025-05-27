@@ -2,6 +2,7 @@ backend:
   name: github
   repo: HA24030014533/Econlytix
   branch: main
+  base_url: https://api.github.com # Added this line
   # auth_endpoint: 'https://api.github.com/authorizations' # Commented out
   auth_scope: 'repo'
   auth_type: 'implicit' # Changed from token to implicit

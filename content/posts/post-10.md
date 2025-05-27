@@ -1,13 +1,22 @@
 ---
 display_settings:
   featured_until: 2025-05-27T13:02:41.209Z
+  display_area: Homepage Grid
+  layout_style: Grid Item
+  column_priority: Full-Width
+  display_order: -3
 draft: false
 title: "AI Chip Tracking: Congress Mandate"
 image: /images/uploads/justin-wallace-gzpitsicuxe-unsplash.jpg
+categories:
+  - Technology
+  - artificial intelligence
+tags:
+  - Technology
+  - Artificial Intelligence
 summary: Congress Mandates GPS Tracking to Enforce Global Export Restrictions
 featured: false
 date: 2022-04-04T10:00:00.000Z
-categories: []
 ---
 WASHINGTON—In a dramatic escalation of the U.S.-China tech war, Congress is pushing to mandate GPS-style tracking for every advanced AI chip exported from American manufacturers, transforming semiconductors into global surveillance devices. The Chip Security Act, introduced on May 15 by a bipartisan coalition led by Reps. Bill Huizenga (R-MI) and Bill Foster (D-IL), represents the most invasive regulatory measure yet in efforts to prevent cutting-edge technology from reaching adversarial nations[3][4][6].
 

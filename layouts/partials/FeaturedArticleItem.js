@@ -36,19 +36,6 @@ const FeaturedArticleItem = ({ article }) => {
             {plainify(summary.slice(0, 150))}...
           </p>
         )}
-        <div className="mb-4 flex items-center text-sm text-gray-600">
-          {author && (
-            <span>
-              By{" "}
-              <Link
-                href={`/authors/${slugify(author)}`}
-                className="font-medium text-primary hover:underline"
-              >
-                {author}
-              </Link>
-            </span>
-          )}
-        </div>
         <div className="flex items-center space-x-4 text-xs text-gray-500">
           <span className="flex items-center">
             <FaRegCommentDots className="mr-1.5" />

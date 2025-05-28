@@ -9,7 +9,8 @@ const Post = ({ post, displayMode }) => {
   const { summary_length, blog_folder } = config.settings;
   const { meta_author } = config.metadata;
   const author = post.frontmatter.author ? post.frontmatter.author : meta_author;
-  const rTime = readingTime(post.content);
+  // Use pre-calculated reading time if available, otherwise calculate it
+  const rTime = post.calculatedReadingTime !== undefined ? post.calculatedReadingTime : readingTime(post.content);
   const { display_settings } = post.frontmatter; // Get the new display settings object
   const {
     display_area = "Default",
@@ -19,6 +20,28 @@ const Post = ({ post, displayMode }) => {
     featured_until,
     hide_from_lists
   } = display_settings || {}; // Destructure with defaults
+
+  // Map displayMode to layout_style if provided
+  let effectiveLayoutStyle = layout_style;
+  if (displayMode) {
+    switch (displayMode) {
+      case "grid_item":
+        effectiveLayoutStyle = "Grid Item";
+        break;
+      case "featured_large":
+        effectiveLayoutStyle = "Featured Large";
+        break;
+      case "hero_right_opinion":
+        effectiveLayoutStyle = "Hero Right";
+        break;
+      case "hero_center_headline":
+        effectiveLayoutStyle = "Hero Center";
+        break;
+      default:
+        effectiveLayoutStyle = layout_style;
+        break;
+    }
+  }
 
   // Default settings
   let containerClass = "post mb-6 flex flex-col";
@@ -30,7 +53,7 @@ const Post = ({ post, displayMode }) => {
   let showSummary = true;
   let showReadMoreButton = false;
   let showCategories = false;
-  let showAuthor = true;
+  let showAuthor = false;
   let showDate = true;
   let showReadingTime = true;
   let summaryLength = Number(summary_length);
@@ -39,13 +62,24 @@ const Post = ({ post, displayMode }) => {
   let metaUlClass = "flex flex-wrap items-center space-x-3 text-xs mt-1.5 text-muted-foreground";
 
   // Layout style specific overrides
-  switch (layout_style) {
+  switch (effectiveLayoutStyle) {
     case "Compact":
       containerClass = "post flex flex-col";
       imageClass = "rounded w-full h-32 object-cover mb-2";
       imageHeight = 128;
       imageWidth = 228;
       titleClass = "text-lg font-semibold mb-1 mt-0 line-clamp-2 h-[4.5rem] text-foreground";
+      showSummary = false;
+      showReadMoreButton = false;
+      showCategories = false;
+      break;
+    case "Extra Compact":
+      containerClass = "post flex flex-col";
+      imageContainerClass = "relative w-full h-16 mb-2"; // Parent div defines size with relative positioning
+      imageClass = "rounded"; // Class for the image itself
+      imageWidth = 114; // Used for 'sizes' prop
+      imageHeight = 64;  // Defined, but not passed with layout="fill"
+      titleClass = "text-md font-semibold mb-1 mt-0 line-clamp-2 h-[3.75rem] text-foreground";
       showSummary = false;
       showReadMoreButton = false;
       showCategories = false;
@@ -59,7 +93,7 @@ const Post = ({ post, displayMode }) => {
       metaUlClass = "px-4 pb-4 " + metaUlClass;
       break;
     case "Featured Large":
-      titleClass = "text-3xl font-bold mb-3 mt-4 line-clamp-2 h-[4.5rem] text-foreground";
+      titleClass = "text-3xl font-bold mb-3 mt-8 line-clamp-2 h-[4.5rem] text-foreground";
       summaryLength = Number(summary_length) + 100;
       imageHeight = 300;
       imageWidth = 530;
@@ -99,14 +133,15 @@ const Post = ({ post, displayMode }) => {
     case "Opinion Style":
       containerClass = "post border-l-4 border-primary pl-4";
       titleClass = "text-xl font-semibold mb-2 text-foreground";
-      showAuthor = true;
+      showAuthor = false;
       showDate = true;
       break;
     case "Grid Item":
       containerClass = "post grid-item hover:scale-[1.02] transition-transform duration-200";
-      imageClass = "rounded-lg w-full aspect-video object-cover";
-      imageHeight = 200;
-      imageWidth = 400;
+      imageContainerClass = "image-container relative h-48"; // Added relative positioning and height
+      imageClass = "object-cover";
+      imageHeight = undefined;
+      imageWidth = undefined;
       titleClass = "text-lg font-semibold mt-2 mb-1 text-foreground";
       break;
   }
@@ -185,7 +220,7 @@ const Post = ({ post, displayMode }) => {
         </h3>
         {showSummary && (
           <p className={`mt-1.5 text-sm text-foreground ${displayMode === 'hero_center_headline' ? 'px-4 md:px-8 lg:px-12' : ''} line-clamp-3`}> {/* Changed mt-2.5 to mt-1.5 */}
-            {post.content?.slice(0, summaryLength)}...
+            {post.summaryText !== undefined ? post.summaryText : (post.content?.slice(0, summaryLength) + '...')}
           </p>
         )}
       </div>
@@ -203,17 +238,6 @@ const Post = ({ post, displayMode }) => {
             <li className="inline-flex items-center">
               <FaClock className="mr-1.5" />
               {rTime}
-            </li>
-          )}
-          {showAuthor && displayMode !== 'hero_right_opinion' && (
-            <li>
-              <Link
-                className="inline-flex items-center hover:text-primary"
-                href="/about"
-              >
-                <FaUserAlt className="mr-1.5" />
-                {author}
-              </Link>
             </li>
           )}
         </ul>
@@ -252,12 +276,46 @@ const Post = ({ post, displayMode }) => {
               {post.frontmatter.title}
             </Link>
           </h3>
-          <p className="text-base text-muted-foreground mt-0.5">
-            By {author}
-          </p>
         </div>
       </div>
     );
+  }
+
+  // Define imageRenderProps before the main return statement, matching user example structure
+  let imageRenderProps = {
+    src: post.frontmatter.image,
+    alt: post.frontmatter.title,
+    quality: 90, // Default quality
+    style: { objectFit: 'cover', width: 'auto', height: 'auto' }, // Ensure aspect ratio is maintained
+    // fill is undefined by default, meaning width/height props will be used by Next/Image
+  };
+
+  if (post.slug === "post-12") {
+    imageRenderProps = {
+      ...imageRenderProps, // Start with defaults
+      width: 700,
+      height: 180,
+      // objectFit: "cover", // REMOVED direct prop
+      fill: undefined,    // Explicitly ensure fill is not true
+      style: { objectFit: 'cover', width: 'auto', height: 'auto' }, // Maintain aspect ratio
+    };
+  } else if (effectiveLayoutStyle === "Extra Compact" || effectiveLayoutStyle === "Grid Item") {
+    imageRenderProps = {
+      ...imageRenderProps, // Start with defaults
+      fill: true,         // Enable fill mode for Next/Image
+      // objectFit: "cover", // REMOVED direct prop
+      width: undefined,   // Not used by Next/Image when fill is true
+      height: undefined,  // Not used by Next/Image when fill is true
+      style: { objectFit: 'cover' }, // For fill, only objectFit is needed in style
+    };
+  } else { // Default case for other posts (not "post-12", "post-8" and not "Extra Compact")
+    imageRenderProps = {
+      ...imageRenderProps, // Start with defaults
+      width: imageWidth,  // Use imageWidth from the layout_style switch statement
+      height: imageHeight, // Use imageHeight from the layout_style switch statement
+      fill: undefined,    // Ensure fill is not true
+      style: { objectFit: 'cover', width: '100%', height: 'auto' },
+    };
   }
 
   return (
@@ -266,13 +324,9 @@ const Post = ({ post, displayMode }) => {
         <div className={imageContainerClass}>
           <ImageFallback
             className={imageClass}
-            src={post.frontmatter.image}
-            alt={post.frontmatter.title}
-            width={imageWidth}
-            height={imageHeight}
-            quality={90}
-            sizes={`(max-width: 768px) ${imageWidth}px, ${imageWidth * 1.5}px`}
-            priority={layout_style === "Featured Large" || layout_style === "Hero Center" || displayMode === "hero_center_headline"}
+            {...imageRenderProps}
+            sizes="(max-width: 768px) 100vw, 400px"
+            priority={false}
           />
           {showCategories && (
             <ul className="absolute top-2 left-2 flex flex-wrap items-center">
@@ -290,6 +344,28 @@ const Post = ({ post, displayMode }) => {
                 </li>
               ))}
             </ul>
+          )}
+          {post.frontmatter.image_attribution && (
+            <div className="image-attribution text-xs mt-1 text-muted-foreground">
+              Image:{" "}
+              <a
+                href={post.frontmatter.image_attribution.source_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-primary"
+              >
+                {post.frontmatter.image_attribution.title}
+              </a>{" "}
+              by {post.frontmatter.image_attribution.creator} /{" "}
+              <a
+                href={post.frontmatter.image_attribution.rights_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-primary"
+              >
+                {post.frontmatter.image_attribution.rights_text}
+              </a>
+            </div>
           )}
         </div>
       )}

@@ -54,7 +54,9 @@ const Home = ({
 
   return (
     <>
-      <MarketRibbon />
+      <div style={{ position: 'relative' }}>
+        <MarketRibbon />
+      </div>
       <div> {/* Removed mt-8 from wrapper div */}
         <Base>
           {/* Hero Section Start */}
@@ -71,9 +73,17 @@ const Home = ({
                       {heroPost0.frontmatter.title}
                     </Link>
                   </h2>
-                  <p className="text-lg text-foreground mb-3">
-                    {heroPost0.frontmatter.summary ? heroPost0.frontmatter.summary : heroPost0.content.slice(0, 120) + '...'}
-                  </p>
+                  {heroPost0.frontmatter.homepage_bullet_summary ? (
+                    <ul className="list-disc pl-5 mb-3">
+                      <li className="text-lg text-foreground">
+                        {heroPost0.frontmatter.homepage_bullet_summary}
+                      </li>
+                    </ul>
+                  ) : (
+                    <p className="text-lg text-foreground mb-3">
+                      {heroPost0.summaryText}
+                    </p>
+                  )}
                   {/* Bullet for related story, only if hero_bullet is set */}
                   {heroPost0.frontmatter.hero_bullet && (
                     <ul className="list-disc pl-5">
@@ -95,7 +105,7 @@ const Home = ({
                         <circle cx="12" cy="12" r="10"/>
                         <path d="M12 6v6l4 2"/>
                       </svg>
-                      {readingTime(heroPost0.content)}
+                      {heroPost0.calculatedReadingTime || readingTime(heroPost0.frontmatter.summary || "")}
                     </span>
                   </div>
                 </div>
@@ -109,7 +119,7 @@ const Home = ({
                     </Link>
                   </h3>
                   <p className="text-base text-foreground">
-                    {heroPost1.frontmatter.summary ? heroPost1.frontmatter.summary : heroPost1.content.slice(0, 80) + '...'}
+                    {heroPost1.summaryText || heroPost1.frontmatter.summary || ""}
                   </p>
                   {/* Comments and reading time */}
                   <div className="flex items-center text-xs text-muted-foreground mt-2 space-x-4">
@@ -124,7 +134,7 @@ const Home = ({
                         <circle cx="12" cy="12" r="10"/>
                         <path d="M12 6v6l4 2"/>
                       </svg>
-                      {readingTime(heroPost1.content)}
+                      {heroPost1.calculatedReadingTime || readingTime(heroPost1.frontmatter.summary || "")}
                     </span>
                   </div>
                 </div>
@@ -137,7 +147,7 @@ const Home = ({
                     </Link>
                   </h3>
                   <p className="text-base text-foreground">
-                    {heroPost2.frontmatter.summary ? heroPost2.frontmatter.summary : heroPost2.content.slice(0, 80) + '...'}
+                    {heroPost2.summaryText || heroPost2.frontmatter.summary || ""}
                   </p>
                   {/* Comments and reading time */}
                   <div className="flex items-center text-xs text-muted-foreground mt-2 space-x-4">
@@ -152,7 +162,7 @@ const Home = ({
                         <circle cx="12" cy="12" r="10"/>
                         <path d="M12 6v6l4 2"/>
                       </svg>
-                      {readingTime(heroPost2.content)}
+                      {heroPost2.calculatedReadingTime || readingTime(heroPost2.frontmatter.summary || "")}
                     </span>
                   </div>
                 </div>
@@ -183,7 +193,7 @@ const Home = ({
                     </Link>
                   </h1>
                   <p className="text-lg text-foreground mb-4 max-w-2xl mx-auto">
-                    {heroPostCenter.frontmatter.summary ? heroPostCenter.frontmatter.summary : heroPostCenter.content.slice(0, 140) + '...'}
+                    {heroPostCenter.summaryText || heroPostCenter.frontmatter.summary || ""}
                   </p>
                   <div className="flex items-center justify-center text-xs text-muted-foreground space-x-6">
                     <span className="inline-flex items-center">
@@ -197,7 +207,7 @@ const Home = ({
                         <circle cx="12" cy="12" r="10"/>
                         <path d="M12 6v6l4 2"/>
                       </svg>
-                      {readingTime(heroPostCenter.content)}
+                      {heroPostCenter.calculatedReadingTime || readingTime(heroPostCenter.frontmatter.summary || "")}
                     </span>
                   </div>
                 </div>
@@ -258,7 +268,7 @@ const Home = ({
                             </Link>
                           </h2>
                           <p className="text-foreground mb-4">
-                            {mainHeadlinePost.frontmatter.summary ? mainHeadlinePost.frontmatter.summary : mainHeadlinePost.content.slice(0, 150) + '...'}
+                            {mainHeadlinePost.summaryText || mainHeadlinePost.frontmatter.summary || ""}
                           </p>
                         </div>
                         <p className="inline-flex items-center font-secondary text-xs mt-auto text-muted-foreground"> {/* Added mt-auto to push to bottom */}
@@ -290,7 +300,7 @@ const Home = ({
                       <div className="row">
                         {gridPosts.map((post) => (
                           <div className="mb-8 md:col-4" key={post.slug}>
-                            <Post post={post} displayMode="featured_large" />
+                            <Post post={post} displayMode="grid_item" />
                           </div>
                         ))}
                       </div>
@@ -334,23 +344,41 @@ export const getStaticProps = async () => {
   const { featured_posts, recent_posts, promotion } = frontmatter;
   const rawPosts = getSinglePage(`content/${blog_folder}`);
   
-  // Serialize date fields in posts
-  const posts = rawPosts.map(post => {
+  // Serialize date fields in posts and prepare data for props
+  const posts = rawPosts.map(rawPost => {
+    const post = { ...rawPost }; // Create a mutable copy
+
+    // Ensure frontmatter exists
+    if (!post.frontmatter) {
+      post.frontmatter = {};
+    }
+
+    // Calculate and add reading time
+    // The `|| ""` ensures readingTime doesn't break on undefined content
+    post.calculatedReadingTime = readingTime(post.content || "");
+
+    // Create summaryText if not present in frontmatter, or use frontmatter.summary
+    // Fallback to empty string if no content for summary
+    if (post.frontmatter.summary) {
+      post.summaryText = post.frontmatter.summary;
+    } else {
+      const summaryLength = config.settings.summary_length || 150;
+      post.summaryText = (post.content || "").slice(0, summaryLength) + ((post.content || "").length > summaryLength ? "..." : "");
+    }
+    
+    // Remove full content to reduce page size passed to props
+    delete post.content;
+
+    // Date serialization for featured_until
     if (
-      post.frontmatter &&
       post.frontmatter.display_settings &&
       post.frontmatter.display_settings.featured_until &&
       post.frontmatter.display_settings.featured_until instanceof Date
     ) {
-      return {
-        ...post,
-        frontmatter: {
-          ...post.frontmatter,
-          display_settings: {
-            ...post.frontmatter.display_settings,
-            featured_until: post.frontmatter.display_settings.featured_until.toISOString(),
-          },
-        },
+      // Ensure display_settings is an object before modifying
+      post.frontmatter.display_settings = {
+        ...post.frontmatter.display_settings,
+        featured_until: post.frontmatter.display_settings.featured_until.toISOString(),
       };
     }
     return post;

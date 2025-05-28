@@ -9,8 +9,7 @@ const Document = () => {
     <Html lang="en">
       <Head>
         {/* favicon */}
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" href={favicon} />
+        <link rel="icon" type="image/svg+xml" href={favicon} />
         <link rel="apple-touch-icon" href={favicon} />
         {/* theme meta */}
         <meta name="theme-name" content="geeky-nextjs" />

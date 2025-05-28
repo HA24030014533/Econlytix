@@ -143,6 +143,7 @@ const MarketRibbon: React.FC = () => {
 
   return (
     <div
+      suppressHydrationWarning={true}
       className="bg-gray-900 text-white overflow-hidden relative"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}

@@ -29,19 +29,6 @@
   margin-bottom: 1.5rem; // Reduced bottom margin to shift content up
 }
 
-.main-content-area {
-  // Flex handled by Tailwind: flex flex-col md:flex-row md:space-x-8
-  // mb-12 handled by Tailwind
-}
-
-.left-column {
-  // md:w-3/5 (approx 60%) - Handled by Tailwind
-  // mb-8 md:mb-0 - Handled by Tailwind
-}
-
-.right-column {
-  // md:w-2/5 (approx 40%) - Handled by Tailwind
-}
 
 .featured-article-item {
   background-color: var(--card); // Use theme variable
@@ -103,9 +90,6 @@
   padding-bottom: 0.75rem;
 }
 
-.popular-articles-list {
-  // space-y-4 handled by Tailwind
-}
 
 .popular-article-item {
   display: flex;
@@ -187,9 +171,6 @@
   }
 }
 
-.related-opinion-section {
-  // No specific container styles needed beyond Tailwind margins
-}
 
 .related-opinion-title {
   font-size: 1.5rem; // text-xl
@@ -199,9 +180,6 @@
   padding-bottom: 0.75rem;
 }
 
-.opinion-articles-list {
-  // space-y-6 handled by Tailwind
-}
 
 .opinion-article-item {
   display: flex;

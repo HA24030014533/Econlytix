@@ -11,11 +11,11 @@ const Contact = ({ data }) => {
   return (
     <section className="section">
       <div className="container">
-        <div className="row relative pb-16">
+        <div className="row relative pb-16 h-96">
           <ImageFallback
             className="-z-[1] object-cover object-top"
             src={"/images/map.svg"}
-            fill="true"
+            fill={true}
             alt="map bg"
             priority={true}
           />

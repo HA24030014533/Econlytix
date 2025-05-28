@@ -3,6 +3,7 @@ import PostSingle from "@layouts/PostSingle";
 import { getSinglePage } from "@lib/contentParser";
 import { getTaxonomy } from "@lib/taxonomyParser";
 import parseMDX from "@lib/utils/mdxParser";
+import readingTime from "@lib/utils/readingTime";
 const { blog_folder } = config.settings;
 
 // post single layout
@@ -59,6 +60,17 @@ export const getStaticProps = async ({ params }) => {
     )
   );
 
+  const processedRelatedPosts = relatedPosts.map(p => {
+    const calculatedReadingTime = readingTime(p.content);
+    const summaryText = p.content ? p.content.slice(0, 200) + '...' : '';
+    return {
+      slug: p.slug,
+      frontmatter: p.frontmatter,
+      calculatedReadingTime,
+      summaryText,
+    };
+  });
+
   //all categories
   const categories = getTaxonomy(`content/${blog_folder}`, "categories");
   const categoriesWithPostsCount = categories.map((category) => {
@@ -106,8 +118,11 @@ export const getStaticProps = async ({ params }) => {
   const serializePostListDates = (postList) => postList.map(p => serializePostDates(p));
 
   const serializablePost = serializePostDates(post);
-  const serializableRelatedPosts = serializePostListDates(relatedPosts);
-  const serializablePosts = serializePostListDates(posts);
+  const serializableRelatedPosts = serializePostListDates(processedRelatedPosts);
+  // Optimize 'posts' prop by removing 'content' from each item
+  // This ensures that only slug, frontmatter, and other metadata are passed, not full content
+  const postsForOptimizedProp = posts.map(({ content, ...restOfPost }) => restOfPost);
+  const serializablePosts = serializePostListDates(postsForOptimizedProp);
 
   return {
     props: {

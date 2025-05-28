@@ -1,9 +1,12 @@
 html {
+  // stylelint-disable-next-line at-rule-no-unknown
   @apply text-base;
 }
 
 body {
+  // stylelint-disable-next-line at-rule-no-unknown
   @apply bg-body font-sans font-normal leading-relaxed text-text dark:bg-darkmode-body dark:text-darkmode-light;
+  position: relative; /* Ensure non-static position for scroll offset calculation */
 }
 
 h1,
@@ -12,39 +15,47 @@ h3,
 h4,
 h5,
 h6 {
+  // stylelint-disable-next-line at-rule-no-unknown
   @apply font-secondary font-bold leading-tight text-black dark:text-darkmode-light;
 }
 
 h1 { /* Apply primary color specifically to h1, can be adjusted if other headings need it too */
+  // stylelint-disable-next-line at-rule-no-unknown
   @apply text-primary;
 }
 
 h1,
 .h1 {
+  // stylelint-disable-next-line at-rule-no-unknown
   @apply text-h1-sm md:text-h1;
 }
 
 h2,
 .h2 {
+  // stylelint-disable-next-line at-rule-no-unknown
   @apply text-h2-sm md:text-h2;
 }
 
 h3,
 .h3 {
+  // stylelint-disable-next-line at-rule-no-unknown
   @apply text-h3-sm md:text-h3;
 }
 
 h4,
 .h4 {
+  // stylelint-disable-next-line at-rule-no-unknown
   @apply text-h4;
 }
 
 h5,
 .h5 {
+  // stylelint-disable-next-line at-rule-no-unknown
   @apply text-h5;
 }
 
 h6,
 .h6 {
+  // stylelint-disable-next-line at-rule-no-unknown
   @apply text-h6;
 }
